@@ -6,8 +6,10 @@ use App\Models\User;
 Route::get('/', function () {
     return view('index');
 });
-
-Route::get('/test', function(){
-    $user = User::find(1);
-    return $user->projects;
+Route::get("/login",function(){
+    return view('auth/login');
 });
+Route::get("/reg",function(){
+    return view('auth/reg');
+});
+

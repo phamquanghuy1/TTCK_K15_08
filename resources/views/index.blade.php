@@ -1,7 +1,9 @@
-<html>
+<html lang="vi">
 
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&amp;display=swap" rel="stylesheet" />
     <style>
@@ -14,7 +16,7 @@
 <body class="bg-gray-100">
     <nav class="bg-white shadow">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="flex items-center" href="#">
+            <a class="flex items-center" href="/">
                 <img alt="Ảnh logo cá nhân" class="rounded-full" height="40"
                     src="https://storage.googleapis.com/a1aa/image/RNQaeKuDOBQCNy8VQ70kfMMuH0iXaeADSQqzNed6sksYBLzPB.jpg"
                     width="40" />
@@ -47,10 +49,10 @@
                 </a>
             </div>
             <div class="flex space-x-4">
-                <a class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" href="#">
+                <a class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" href="/reg">
                     Đăng ký
                 </a>
-                <a class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" href="#">
+                <a class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600" href="/login">
                     Đăng nhập
                 </a>
             </div>
@@ -215,10 +217,10 @@
                         Liên hệ
                     </h5>
                     <p class="text-gray-700">
-                        Email: contact@research.org
+                        Email: <a class="text-gray-700 hover:text-blue-500" href="mailto:huypham140103@gmail.com">huypham140103@gmail.com</a>
                     </p>
                     <p class="text-gray-700">
-                        Điện thoại: +84 123 456 789
+                        Điện thoại: <a class="text-gray-700 hover:text-blue-500" href="tel: +84 379 395 645">+84 379 395 645</a>
                     </p>
                 </div>
                 <div>
