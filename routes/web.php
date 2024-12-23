@@ -1,15 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
+use App\Http\Controllers\Backend\AuthController;
 
 Route::get('/', function () {
     return view('index');
 });
-Route::get("/login",function(){
-    return view('auth/login');
-});
-Route::get("/reg",function(){
-    return view('auth/reg');
-});
-
+Route::get("/login",[AuthController::class,'login']);
+Route::get("/reg",[AuthController::class,'reg']);
