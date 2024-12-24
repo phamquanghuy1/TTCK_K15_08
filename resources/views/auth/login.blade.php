@@ -9,16 +9,25 @@
                     width="100" />
             </div>
             <h2 class="text-2xl font-bold text-center mb-6">Đăng Nhập</h2>
-            <form>
+            <form method="POST" action="">
+                @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700" for="email">Email</label>
                     <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        id="email" placeholder="Nhập email của bạn" type="email" />
+                        id="email"
+                        name="email"
+                        placeholder="Nhập email của bạn"
+                        type="email"
+                        required/>
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700" for="password">Mật khẩu</label>
                     <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        id="password" placeholder="Nhập mật khẩu của bạn" type="password" />
+                        id="password"
+                        name="password"
+                        placeholder="Nhập mật khẩu của bạn"
+                        type="password"
+                        required/>
                 </div>
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
@@ -30,6 +39,11 @@
                 <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
                     type="submit">Đăng Nhập
                 </button>
+                @if (session('error'))
+                    <div class="text-red-500 mt-4 text-center">
+                        {{ session('error') }}
+                    </div>
+                @endif
             </form>
             <div class="text-center mt-6">
                 <p class="text-gray-700">
