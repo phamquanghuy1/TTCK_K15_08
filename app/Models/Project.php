@@ -16,23 +16,22 @@ class Project extends Model
         'start_date',
         'end_date',
         'created_by',
+        'category_id',
+        'noi_dung',
     ];
 
-    // Quan hệ với User (người tạo dự án)
     public function creator()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(Author::class, 'created_by');
     }
 
-    // Quan hệ với Article
     public function articles()
     {
         return $this->hasMany(Article::class);
     }
 
-    // Quan hệ với Category thông qua bảng project_category
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class, 'project_category');
+        return $this->belongsTo(Category::class);
     }
 }

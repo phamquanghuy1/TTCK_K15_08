@@ -14,9 +14,13 @@ class Author extends Model
         'affiliation',
     ];
 
-    // Quan hệ với Article thông qua bảng article_author
     public function articles()
     {
         return $this->belongsToMany(Article::class, 'article_author');
+    }
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'created_by');
     }
 }

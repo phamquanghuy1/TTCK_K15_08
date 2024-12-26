@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('article_author', function (Blueprint $table) {
+        Schema::create('research_topic', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('article_id')->constrained('articles')->onDelete('cascade');
-            $table->foreignId('author_id')->constrained('authors')->onDelete('cascade');
+            $table->string('ten_de_tai');
+            $table->text('muc_tieu_de_tai');
+            $table->text('ket_qua_dat_duoc');
+            $table->text('san_pham_de_tai');
+            $table->timestamps();
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('article_author');
+        Schema::dropIfExists('research_topic');
     }
 };

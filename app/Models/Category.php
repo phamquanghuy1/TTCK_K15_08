@@ -14,9 +14,13 @@ class Category extends Model
         'description',
     ];
 
-    // Quan hệ với Project thông qua bảng project_category
     public function projects()
     {
-        return $this->belongsToMany(Project::class, 'project_category');
+        return $this->hasMany(Project::class);
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 }

@@ -10,27 +10,32 @@ class Article extends Model
 
     protected $fillable = [
         'title',
-        'abstract',
+        'description',
         'publication_date',
+        'classification',
         'project_id',
         'created_by',
+        'category_id',
+        'noi_dung',
     ];
 
-    // Quan hệ với Project
     public function project()
     {
         return $this->belongsTo(Project::class);
     }
 
-    // Quan hệ với User (người tạo bài viết)
     public function creator()
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(Author::class, 'created_by');
     }
 
-    // Quan hệ với Author thông qua bảng article_author
     public function authors()
     {
         return $this->belongsToMany(Author::class, 'article_author');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
