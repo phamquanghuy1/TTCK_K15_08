@@ -4,24 +4,50 @@
     <div class="container mx-auto px-4 py-8">
         <div class="bg-white p-6 rounded-md shadow-md mb-8">
             <form>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
-                    <input class="border border-gray-300 p-2 rounded-md" placeholder="Tên đề tài" type="text" />
-                    <select class="border border-gray-300 p-2 rounded-md">
-                        <option selected="">
-                            Danh mục đề tài
-                        </option>
-                        <option value="1">
-                            Danh mục 1
-                        </option>
-                        <option value="2">
-                            Danh mục 2
-                        </option>
-                        <option value="3">
-                            Danh mục 3
-                        </option>
-                    </select>
-                    <input class="border border-gray-300 p-2 rounded-md" placeholder="Năm xuất bản" type="text" />
-                    <input class="border border-gray-300 p-2 rounded-md" placeholder="Tác giả" type="text" />
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+                    <div>
+                        <label for="tenDeTai" class="block text-gray-700">Tiêu đề</label>
+                        <input id="tenDeTai" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                    </div>
+                    <div>
+                        <label for="khoaDonVi" class="block text-gray-700">Khoa/Đơn vị</label>
+                        <input id="khoaDonVi" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                    </div>
+                    <div>
+                        <label for="danhMucDeTai" class="block text-gray-700">Loại công trình</label>
+                        <select id="danhMucDeTai" class="border border-gray-300 p-2 rounded-md w-full">
+                            <option selected="">
+                                Loại công trình
+                            </option>
+                            <option value="1">
+                                Danh mục 1
+                            </option>
+                            <option value="2">
+                                Danh mục 2
+                            </option>
+                            <option value="3">
+                                Danh mục 3
+                            </option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="namXuatBan" class="block text-gray-700">Năm xuất bản</label>
+                        <input id="namXuatBan" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                    </div>
+                    <div>
+                        <label for="tacGia" class="block text-gray-700">Tác giả</label>
+                        <input id="tacGia" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="flex items-center mb-1 mt-5">
+                            <input id="soHuuUNETI" class="mr-2" type="checkbox" />
+                            <label for="soHuuUNETI" class="text-gray-700">Những bài báo thuộc sở hữu của UNETI</label>
+                        </div>
+                        <div class="flex items-center mb-1">
+                            <input id="baiBaoQuocTe" class="mr-2" type="checkbox" />
+                            <label for="baiBaoQuocTe" class="text-gray-700">Những bài báo quốc tế</label>
+                        </div>
+                    </div>
                 </div>
                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" type="submit">
                     Tìm kiếm
