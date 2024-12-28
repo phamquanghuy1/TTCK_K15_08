@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('research_topic', function (Blueprint $table) {
             $table->id();
-            $table->string('ten_de_tai');
-            $table->text('muc_tieu_de_tai');
-            $table->text('ket_qua_dat_duoc');
-            $table->text('san_pham_de_tai');
+            $table->string('title');
+            $table->text('target');
+            $table->text('result');
+            $table->text('product_achieved');
             $table->timestamps();
         });
     }

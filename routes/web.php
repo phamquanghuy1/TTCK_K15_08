@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\PagesController;
+use App\Http\Controllers\Backend\UserController;
+use App\Models\Article;
 
 //home
 Route::get('/', function () {
-    return view('index');
+    $articles = Article::with('creator:id,name')->get();
+    return view('index', compact('articles'));
 });
 
 //admin
@@ -19,9 +22,7 @@ Route::group(['middleware'=>'admin'],function(){
 
 //user
 Route::group(['middleware'=>'user'],function(){
-    Route::get('/user',function(){
-        return view('user.index');
-    });
+    Route::get("/user",[UserController::class,'user']);
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
@@ -37,6 +38,8 @@ Route::get("/sanpham",[PagesController::class,'sanpham']);
 Route::get("/giaithuong",[PagesController::class,'giaithuong']);
 Route::get("/detai",[PagesController::class,'detai']);
 Route::get("/hoithao",[PagesController::class,'hoithao']);
-Route::get("/dktacgia",[PagesController::class,'dktacgia']);
-Route::get("/dkdetai",[PagesController::class,'dkdetai']);
+
+//users
+Route::get("/dktacgia",[UserController::class,'dktacgia']);
+Route::get("/dkdetai",[UserController::class,'dkdetai']);
 

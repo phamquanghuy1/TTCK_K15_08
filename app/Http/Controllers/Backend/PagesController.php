@@ -32,13 +32,4 @@ class PagesController extends Controller
     {
         return view('user.hoithao');
     }
-    public function dktacgia()
-    {
-        return view('user.dktacgia');
-    }
-    public function dkdetai()
-    {
-        return view('user.dkdetai');
-    }
-
 }

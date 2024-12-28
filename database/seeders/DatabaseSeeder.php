@@ -19,19 +19,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $user = new User();
-        $user->name = 'admin';
-        $user->email = 'admin@gmail.com';
-        $user->phone = '0379375645';
-        $user->password = bcrypt('admin');
-        $user->role = 'admin';
-        $user->save();
+        // $user = new User();
+        // $user->name = 'admin';
+        // $user->email = 'admin@gmail.com';
+        // $user->phone = '0379375645';
+        // $user->password = bcrypt('admin');
+        // $user->role = 'admin';
+        // $user->save();
 
         $user = new User();
-        $user->name = 'user';
-        $user->email = 'user@gmail.com';
-        $user->phone = '0877771401';
-        $user->password = bcrypt('user');
+        $user->name = 'Phạm Quang Huy';
+        $user->email = 'huypham140103@gmail.com';
+        $user->phone = '0888881401';
+        $user->password = bcrypt('Huy12345');
         $user->save();
     }
 }

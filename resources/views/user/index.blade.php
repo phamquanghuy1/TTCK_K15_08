@@ -63,106 +63,35 @@
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="researchContainer">
+            @foreach($articles as $article)
             <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
+                @if($article->img)
                 <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
-                    src="https://storage.googleapis.com/a1aa/image/trxlIqxBdtrzPNxOwh4C4mTYIk25fdnqUkuaOVTfueWwgl5nA.jpg" />
+                    src="{{ $article->img }}" />
+                @endif
                 <div>
-                    <h5 class="text-xl font-bold mb-2">
-                        Tiêu đề nghiên cứu khoa học 1
+                    <h5 class="text-xl font-bold mb-2 text-center">
+                        {{ $article->title }}
                     </h5>
-                    <p class="text-gray-700 mb-2">
-                        Mô tả tóm tắt đề tài nghiên cứu khoa học 1. Đây là phần mô tả ngắn gọn về nội dung và mục tiêu
-                        của nghiên cứu.
+                    <p class="text-gray-700 mb-2 text-justify">
+                        {{ $article->description }}
                     </p>
-                    <p class="text-gray-700">
+                    <p class="text-gray-700 ">
                         <strong>
                             Tác giả:
                         </strong>
-                        Tác giả 1
+                        {{-- {!! html_entity_decode(htmlspecialchars_decode($article->creator->name), ENT_QUOTES, 'UTF-8') !!} --}}
+                        {{ $article->creator->name }}
                     </p>
                     <p class="text-gray-700">
                         <strong>
                             Thời gian xuất bản:
                         </strong>
-                        2023
+                        {{ $article->publication_date }}
                     </p>
                 </div>
             </a>
-            <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
-                <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
-                    src="https://storage.googleapis.com/a1aa/image/trxlIqxBdtrzPNxOwh4C4mTYIk25fdnqUkuaOVTfueWwgl5nA.jpg" />
-                <div>
-                    <h5 class="text-xl font-bold mb-2">
-                        Tiêu đề nghiên cứu khoa học 2
-                    </h5>
-                    <p class="text-gray-700 mb-2">
-                        Mô tả tóm tắt đề tài nghiên cứu khoa học 2. Đây là phần mô tả ngắn gọn về nội dung và mục tiêu
-                        của nghiên cứu.
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Tác giả:
-                        </strong>
-                        Tác giả 2
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Thời gian xuất bản:
-                        </strong>
-                        2022
-                    </p>
-                </div>
-            </a>
-            <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
-                <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
-                    src="https://storage.googleapis.com/a1aa/image/trxlIqxBdtrzPNxOwh4C4mTYIk25fdnqUkuaOVTfueWwgl5nA.jpg" />
-                <div>
-                    <h5 class="text-xl font-bold mb-2">
-                        Tiêu đề nghiên cứu khoa học 3
-                    </h5>
-                    <p class="text-gray-700 mb-2">
-                        Mô tả tóm tắt đề tài nghiên cứu khoa học 3. Đây là phần mô tả ngắn gọn về nội dung và mục tiêu
-                        của nghiên cứu.
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Tác giả:
-                        </strong>
-                        Tác giả 3
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Thời gian xuất bản:
-                        </strong>
-                        2021
-                    </p>
-                </div>
-            </a>
-            <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
-                <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
-                    src="https://storage.googleapis.com/a1aa/image/trxlIqxBdtrzPNxOwh4C4mTYIk25fdnqUkuaOVTfueWwgl5nA.jpg" />
-                <div>
-                    <h5 class="text-xl font-bold mb-2">
-                        Tiêu đề nghiên cứu khoa học 4
-                    </h5>
-                    <p class="text-gray-700 mb-2">
-                        Mô tả tóm tắt đề tài nghiên cứu khoa học 3. Đây là phần mô tả ngắn gọn về nội dung và mục tiêu
-                        của nghiên cứu.
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Tác giả:
-                        </strong>
-                        Tác giả 4
-                    </p>
-                    <p class="text-gray-700">
-                        <strong>
-                            Thời gian xuất bản:
-                        </strong>
-                        2021
-                    </p>
-                </div>
-            </a>
+            @endforeach
         </div>
     </div>
 @endsection

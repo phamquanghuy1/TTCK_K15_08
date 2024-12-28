@@ -14,6 +14,8 @@ class CreateAuthorsTable extends Migration
             $table->string('email')->unique();
             $table->string('affiliation')->nullable();
             $table->timestamps();
+
+            $table->foreign('email')->references('email')->on('users')->onDelete('cascade');
         });
     }
 
