@@ -3,48 +3,61 @@
 @section('content')
     <div class="container mx-auto px-4 py-8">
         <div class="bg-white p-6 rounded-md shadow-md mb-8">
-            <form>
+            <form action="{{ route('user.index') }}" method="GET">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
                     <div>
                         <label for="tenDeTai" class="block text-gray-700">Tiêu đề</label>
-                        <input id="tenDeTai" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                        <input id="tenDeTai"
+                               name="tenDeTai"
+                               class="border border-gray-300 p-2 rounded-md w-full"
+                               type="text"
+                               value="{{ request('tenDeTai') }}" />
                     </div>
                     <div>
                         <label for="khoaDonVi" class="block text-gray-700">Khoa/Đơn vị</label>
-                        <input id="khoaDonVi" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                        <input id="khoaDonVi"
+                               name="khoaDonVi"
+                               class="border border-gray-300 p-2 rounded-md w-full"
+                               type="text"
+                               value="{{ request('khoaDonVi') }}" />
                     </div>
                     <div>
                         <label for="danhMucDeTai" class="block text-gray-700">Loại công trình</label>
-                        <select id="danhMucDeTai" class="border border-gray-300 p-2 rounded-md w-full">
-                            <option selected="">
-                                Loại công trình
-                            </option>
-                            <option value="1">
-                                Danh mục 1
-                            </option>
-                            <option value="2">
-                                Danh mục 2
-                            </option>
-                            <option value="3">
-                                Danh mục 3
-                            </option>
+                        <select id="danhMucDeTai"
+                                name="danhMucDeTai"
+                                class="border border-gray-300 p-2 rounded-md w-full">
+                            <option selected="" value="">Loại công trình</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}"
+                                    {{ request('danhMucDeTai') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div>
                         <label for="namXuatBan" class="block text-gray-700">Năm xuất bản</label>
-                        <input id="namXuatBan" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                        <input id="namXuatBan"
+                               name="namXuatBan"
+                               class="border border-gray-300 p-2 rounded-md w-full"
+                               type="number"
+                               value="{{ request('namXuatBan') }}" />
                     </div>
                     <div>
                         <label for="tacGia" class="block text-gray-700">Tác giả</label>
-                        <input id="tacGia" class="border border-gray-300 p-2 rounded-md w-full" type="text" />
+                        <input id="tacGia"
+                               name="tacGia"
+                               class="border border-gray-300 p-2 rounded-md w-full"
+                               type="text"
+                               value="{{ request('tacGia') }}" />
                     </div>
                     <div class="flex flex-col">
                         <div class="flex items-center mb-1 mt-5">
-                            <input id="soHuuUNETI" class="mr-2" type="checkbox" />
+                            <input id="soHuuUNETI" name="soHuuUNETI" class="mr-2" type="checkbox" {{ request('soHuuUNETI') ? 'checked' : '' }} />
                             <label for="soHuuUNETI" class="text-gray-700">Những bài báo thuộc sở hữu của UNETI</label>
                         </div>
                         <div class="flex items-center mb-1">
-                            <input id="baiBaoQuocTe" class="mr-2" type="checkbox" />
+                            <input id="baiBaoQuocTe" name="baiBaoQuocTe" class="mr-2" type="checkbox" {{ request('baiBaoQuocTe') ? 'checked' : '' }} />
                             <label for="baiBaoQuocTe" class="text-gray-700">Những bài báo quốc tế</label>
                         </div>
                     </div>
@@ -78,9 +91,14 @@
                     </p>
                     <p class="text-gray-700 ">
                         <strong>
+                            Tổ chức:
+                        </strong>
+                        {{ $article->classification }}
+                    </p>
+                    <p class="text-gray-700 ">
+                        <strong>
                             Tác giả:
                         </strong>
-                        {{-- {!! html_entity_decode(htmlspecialchars_decode($article->creator->name), ENT_QUOTES, 'UTF-8') !!} --}}
                         {{ $article->creator->name }}
                     </p>
                     <p class="text-gray-700">

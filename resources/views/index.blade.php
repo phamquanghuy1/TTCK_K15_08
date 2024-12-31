@@ -80,7 +80,6 @@
                         <strong>
                             Tác giả:
                         </strong>
-                        {{-- {!! html_entity_decode(htmlspecialchars_decode($article->creator->name), ENT_QUOTES, 'UTF-8') !!} --}}
                         {{ $article->creator->name }}
                     </p>
                     <p class="text-gray-700">

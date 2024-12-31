@@ -21,7 +21,7 @@
     {{-- nav-bar --}}
     <nav class="bg-white shadow">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="flex items-center" href="/">
+            <a class="flex items-center" href="{{ Auth::check() ? '/user' : '/' }}">
                 <img alt="Ảnh logo cá nhân" class="" height="40"
                     src="https://cdn.haitrieu.com/wp-content/uploads/2021/12/Logo-DH-Kinh-te-Ky-thuat-Cong-nghiep-UNETI.png"
                     width="40" />
@@ -38,7 +38,7 @@
                         Nghiên cứu khoa học
                     </button>
                     <div id="dropdownMenu" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden">
-                        <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/">
+                        <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="{{ Auth::check() ? '/user' : '/' }}">
                             Công bố khoa học
                         </a>
                         <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/sanpham">

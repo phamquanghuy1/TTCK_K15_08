@@ -22,7 +22,7 @@ Route::group(['middleware'=>'admin'],function(){
 
 //user
 Route::group(['middleware'=>'user'],function(){
-    Route::get("/user",[UserController::class,'user']);
+    Route::get("/user",[UserController::class,'user'])->name('user.index');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
