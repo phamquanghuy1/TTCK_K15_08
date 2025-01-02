@@ -4,12 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\UserController;
-use App\Models\Article;
+
 
 //home
 Route::get('/', function () {
-    $articles = Article::with('creator:id,name')->get();
-    return view('index', compact('articles'));
+    return view('index');
 });
 
 //admin

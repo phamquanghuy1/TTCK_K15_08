@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -8,23 +9,28 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
-
     protected $fillable = [
-        'name',
+        'ten_nguoi_dung',
+        'so_dien_thoai',
         'email',
-        'phone',
-        'password',
-        'role',
+        'mat_khau',
+        'ma_don_vi',
+        'chuc_vu',
+        'phan_quyen',
+        'phan_quyen',
         'avatar',
     ];
 
-    public function projects()
+    protected $hidden = [
+        'mat_khau', 'remember_token',
+    ];
+    public function getAuthPassword()
     {
-        return $this->hasMany(Project::class, 'created_by');
+        return $this->mat_khau;
     }
 
-    public function articles()
+    public function donVi()
     {
-        return $this->hasMany(Article::class, 'created_by');
+        return $this->belongsTo(DonVi::class, 'ma_don_vi');
     }
 }

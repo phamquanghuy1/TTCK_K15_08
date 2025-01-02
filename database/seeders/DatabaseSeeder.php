@@ -13,25 +13,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // $user = new User();
-        // $user->name = 'admin';
-        // $user->email = 'admin@gmail.com';
-        // $user->phone = '0379375645';
-        // $user->password = bcrypt('admin');
-        // $user->role = 'admin';
-        // $user->save();
+        $user = new User();
+        $user->ten_nguoi_dung = 'admin';
+        $user->so_dien_thoai = '0123456789';
+        $user->email = 'admin@gmail.com';
+        $user->mat_khau = bcrypt('admin');
+        $user->ma_don_vi = 1;
+        $user->chuc_vu = 'Không';
+        $user->phan_quyen = 'admin';
+        $user->save();
 
         $user = new User();
-        $user->name = 'Phạm Quang Huy';
+        $user->ten_nguoi_dung = 'user';
+        $user->so_dien_thoai = '0888881401';
+        $user->email = 'user@gmail.com';
+        $user->mat_khau = bcrypt('user');
+        $user->ma_don_vi = 1;
+        $user->chuc_vu = 'SinhVien';
+        $user->phan_quyen = 'user';
+        $user->save();
+
+        $user = new User();
+        $user->ten_nguoi_dung = 'Phạm Quang Huy';
+        $user->so_dien_thoai = '0379395645';
         $user->email = 'huypham140103@gmail.com';
-        $user->phone = '0888881401';
-        $user->password = bcrypt('Huy12345');
+        $user->mat_khau = bcrypt('Huy12345');
+        $user->ma_don_vi = 1;
+        $user->chuc_vu = 'SinhVien';
+        $user->phan_quyen = 'user';
         $user->save();
     }
 }

@@ -62,7 +62,7 @@
                 </button>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="researchContainer">
+        {{-- <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="researchContainer">
             @foreach($articles as $article)
             <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
                 @if($article->img)
@@ -91,6 +91,6 @@
                 </div>
             </a>
             @endforeach
-        </div>
+        </div> --}}
     </div>
 @endsection

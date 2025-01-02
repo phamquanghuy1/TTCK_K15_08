@@ -22,15 +22,15 @@
                                value="{{ request('khoaDonVi') }}" />
                     </div>
                     <div>
-                        <label for="danhMucDeTai" class="block text-gray-700">Loại công trình</label>
+                        <label for="danhMucDeTai" class="block text-gray-700">Danh mục</label>
                         <select id="danhMucDeTai"
                                 name="danhMucDeTai"
                                 class="border border-gray-300 p-2 rounded-md w-full">
-                            <option selected="" value="">Loại công trình</option>
+                            <option selected="" value="">Danh mục</option>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}"
                                     {{ request('danhMucDeTai') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
+                                    {{ $category->ten_danh_muc }}
                                 </option>
                             @endforeach
                         </select>
@@ -67,6 +67,9 @@
                 </button>
             </form>
         </div>
+        @if ($articles->isEmpty())
+            <p class="text-center text-gray-700">Không tìm thấy bài báo nào</p>
+        @else
         <div class="flex justify-end mb-4">
             <div class="flex items-center justify-center w-32 h-10 rounded-lg overflow-hidden">
                 <button id="toggleView"
@@ -78,38 +81,39 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="researchContainer">
             @foreach($articles as $article)
             <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
-                @if($article->img)
+                {{-- @if($article->img)
                 <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
                     src="{{ $article->img }}" />
-                @endif
+                @endif --}}
                 <div>
                     <h5 class="text-xl font-bold mb-2 text-center">
-                        {{ $article->title }}
+                        {{ $article->tieu_de }}
                     </h5>
                     <p class="text-gray-700 mb-2 text-justify">
-                        {{ $article->description }}
+                        {{ $article->danhMuc ? $article->danhMuc->ten_danh_muc : 'Không có danh mục' }}
                     </p>
                     <p class="text-gray-700 ">
                         <strong>
                             Tổ chức:
                         </strong>
-                        {{ $article->classification }}
+                        {{ $article->donVi->ten_don_vi }}
                     </p>
                     <p class="text-gray-700 ">
                         <strong>
                             Tác giả:
                         </strong>
-                        {{ $article->creator->name }}
+                        {{ $article->tac_gia }}
                     </p>
                     <p class="text-gray-700">
                         <strong>
                             Thời gian xuất bản:
                         </strong>
-                        {{ $article->publication_date }}
+                        {{ $article->ngay_phat_hanh }}
                     </p>
                 </div>
             </a>
             @endforeach
         </div>
     </div>
+    @endif
 @endsection

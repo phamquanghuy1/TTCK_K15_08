@@ -78,7 +78,7 @@
                 @if (Auth::check())
                     <div class="relative">
                         <button id="userDropdownButton" class="flex items-center focus:outline-none">
-                            <span class="text-gray-700">Xin chào, {{ Auth::user()->name }}</span>
+                            <span class="text-gray-700">Xin chào, {{ Auth::user()->ten_nguoi_dung }}</span>
                             <img class="ml-2 rounded-full" src="{{ Auth::user()->avatar }}" alt="Avatar"
                                 width="40" height="40">
                         </button>

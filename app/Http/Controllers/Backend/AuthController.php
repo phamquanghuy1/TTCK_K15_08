@@ -11,11 +11,10 @@ class AuthController extends Controller
     public function __construct() {}
     public function xulylogin(Request $request)
     {
-        $email = $request->email;
-        $password = $request->password;
-        $status = Auth::attempt(['email' => $email, 'password' => $password]);
+        $credentials = $request->only('email', 'password');
+        $status = Auth::attempt($credentials);
         if ($status) {
-            if (Auth::user()->role == 'admin') {
+            if (Auth::user()->phan_quyen == 'admin') {
                 return redirect('/admin')->with('success', 'Đăng nhập thành công');
             }
             return redirect('/user')->with('success', 'Đăng nhập thành công');
@@ -29,7 +28,7 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/');
     }
-    
+
     public function xulyreg() {
 
     }
