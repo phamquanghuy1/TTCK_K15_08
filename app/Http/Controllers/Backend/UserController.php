@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BaiBaoKhoaHoc;
 use App\Models\DanhMuc;
-use App\Models\DonVi;
+use App\Models\Footer;  
 
 class UserController extends Controller
 {
@@ -40,7 +40,8 @@ class UserController extends Controller
 
         $articles = $query->get();
         $categories = DanhMuc::all();
-        return view('user.index', compact('articles','categories'));
+        $thanhViens = Footer::all();
+        return view('user.index', compact('articles','categories','thanhViens'));
     }
     public function dktacgia()
     {

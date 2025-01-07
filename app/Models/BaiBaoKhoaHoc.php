@@ -18,6 +18,7 @@ class BaiBaoKhoaHoc extends Model
         'ma_don_vi',
         'ma_danh_muc',
         'noi_dung',
+        'img',
     ];
 
     public function deTai()

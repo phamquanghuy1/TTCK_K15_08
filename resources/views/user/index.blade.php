@@ -56,10 +56,10 @@
                             <input id="soHuuUNETI" name="soHuuUNETI" class="mr-2" type="checkbox" {{ request('soHuuUNETI') ? 'checked' : '' }} />
                             <label for="soHuuUNETI" class="text-gray-700">Những bài báo thuộc sở hữu của UNETI</label>
                         </div>
-                        <div class="flex items-center mb-1">
+                        {{-- <div class="flex items-center mb-1">
                             <input id="baiBaoQuocTe" name="baiBaoQuocTe" class="mr-2" type="checkbox" {{ request('baiBaoQuocTe') ? 'checked' : '' }} />
                             <label for="baiBaoQuocTe" class="text-gray-700">Những bài báo quốc tế</label>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" type="submit">
@@ -81,15 +81,18 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6" id="researchContainer">
             @foreach($articles as $article)
             <a class="bg-white p-2 rounded-md shadow-md hover:shadow-lg transition-shadow flex flex-col" href="#">
-                {{-- @if($article->img)
-                <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
-                    src="{{ $article->img }}" />
-                @endif --}}
+                @if($article->img)
+                    <img alt="Hình ảnh minh họa nghiên cứu khoa học" class="rounded-md mb-4 object-cover"
+                        src="{{ $article->img }}" />
+                @endif
                 <div>
                     <h5 class="text-xl font-bold mb-2 text-center">
                         {{ $article->tieu_de }}
                     </h5>
-                    <p class="text-gray-700 mb-2 text-justify">
+                    <p class="text-gray-700">
+                        <strong>
+                            Danh mục:
+                        </strong>
                         {{ $article->danhMuc ? $article->danhMuc->ten_danh_muc : 'Không có danh mục' }}
                     </p>
                     <p class="text-gray-700 ">

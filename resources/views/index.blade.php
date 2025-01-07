@@ -43,10 +43,10 @@
                             <input id="soHuuUNETI" class="mr-2" type="checkbox" />
                             <label for="soHuuUNETI" class="text-gray-700">Những bài báo thuộc sở hữu của UNETI</label>
                         </div>
-                        <div class="flex items-center mb-1">
+                        {{-- <div class="flex items-center mb-1">
                             <input id="baiBaoQuocTe" class="mr-2" type="checkbox" />
                             <label for="baiBaoQuocTe" class="text-gray-700">Những bài báo quốc tế</label>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600" type="submit">

@@ -55,7 +55,7 @@
                         </a>
                     </div>
                 </div>
-                @if (Auth::check())
+                @if (Auth::check() && Auth::user()->phan_quyen == 'user')
                     <div class="relative">
                         <button id="dropdownButton1" class="font-bold text-gray-700 hover:text-blue-500 focus:outline-none">
                             Đăng ký khoa học
@@ -75,7 +75,7 @@
                 </a>
             </div>
             <div class="flex space-x-4">
-                @if (Auth::check())
+                @if (Auth::check() && Auth::user()->phan_quyen == 'user')
                     <div class="relative">
                         <button id="userDropdownButton" class="flex items-center focus:outline-none">
                             <span class="text-gray-700">Xin chào, {{ Auth::user()->ten_nguoi_dung }}</span>
@@ -90,7 +90,7 @@
                             <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="#">
                                 Đổi mật khẩu
                             </a>
-                            <form method="POST" action="/logout">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
                                     class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">
@@ -121,11 +121,14 @@
                     <h5 class="text-xl font-bold mb-4">
                         Về chúng tôi
                     </h5>
-                    <p class="text-gray-700">
-                        Chúng tôi là một tổ chức nghiên cứu khoa học hàng đầu, cam kết mang lại những nghiên cứu
-                        chất
-                        lượng và có giá trị cho cộng đồng.
-                    </p>
+                    @foreach ($thanhViens as $thanhVien)
+                        <p class="text-gray-700">
+                            <strong>
+                                Thành viên:
+                            </strong>
+                            {{ $thanhVien->thanh_vien }}
+                        </p>
+                    @endforeach
                 </div>
                 <div>
                     <h5 class="text-xl font-bold mb-4">

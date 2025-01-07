@@ -16,6 +16,15 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
+        Schema::create('footer', function (Blueprint $table) {
+            $table->id();
+            $table->string('thanh_vien');
+            $table->string('email');
+            $table->string('so_dien_thoai');
+            $table->string('dia_chi');
+            $table->timestamps();
+        });
+
         Schema::create('danh_muc', function (Blueprint $table) {
             $table->id();
             $table->string('ten_danh_muc');
@@ -210,6 +219,7 @@ class CreateTables extends Migration
             $table->unsignedBigInteger('ma_don_vi');
             $table->unsignedBigInteger('ma_danh_muc');
             $table->text('noi_dung');
+            $table->string('img');
             $table->timestamps();
 
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();

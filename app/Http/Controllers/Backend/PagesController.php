@@ -4,17 +4,20 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Footer;
 
 class PagesController extends Controller
 {
     public function __construct() {}
     public function login()
     {
-        return view('auth.login');
+        $thanhViens = Footer::all();
+        return view('auth.login',compact('thanhViens'));
     }
     public function reg()
     {
-        return view('auth.reg');
+        $thanhViens = Footer::all();
+        return view('auth.reg' , compact('thanhViens'));
     }
     public function sanpham()
     {
