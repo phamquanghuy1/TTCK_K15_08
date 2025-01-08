@@ -21,18 +21,22 @@ class PagesController extends Controller
     }
     public function sanpham()
     {
-        return view('user.sanpham');
+        $thanhViens = Footer::all();
+        return view('user.sanpham' , compact('thanhViens'));
     }
     public function giaithuong()
     {
-        return view('user.giaithuong');
+        $thanhViens = Footer::all();
+        return view('user.giaithuong' , compact('thanhViens'));
     }
     public function detai()
     {
-        return view('user.detai');
+        $thanhViens = Footer::all();
+        return view('user.detai' , compact('thanhViens'));
     }
     public function hoithao()
     {
-        return view('user.hoithao');
+        $thanhViens = Footer::all();
+        return view('user.hoithao' , compact('thanhViens'));
     }
 }

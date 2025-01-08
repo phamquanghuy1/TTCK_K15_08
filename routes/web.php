@@ -27,12 +27,13 @@ Route::group(['middleware'=>'user'],function(){
 
 //logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 //Athuentication
 Route::get("/login",[PagesController::class,'login']);
-Route::post("/login",[AuthController::class,'xulylogin']);
+Route::post("/login",[AuthController::class,'xulylogin'])->name('login');
 
 Route::get("/reg",[PagesController::class,'reg']);
-Route::post("/reg",[AuthController::class,'xulyreg']);
+Route::post("/reg",[AuthController::class,'xulyreg'])->name('reg');
 
 //pages
 Route::get("/sanpham",[PagesController::class,'sanpham']);

@@ -9,17 +9,20 @@
                     width="100" />
             </div>
             <h2 class="text-2xl font-bold text-center mb-6">Đăng Nhập</h2>
-            <form method="POST" action="">
+            <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700" for="email">Email</label>
                     <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         id="email" name="email" placeholder="Nhập email của bạn" type="email" required />
                 </div>
-                <div class="mb-4">
+                <div class="mb-4 relative">
                     <label class="block text-gray-700" for="password">Mật khẩu</label>
                     <input class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         id="password" name="password" placeholder="Nhập mật khẩu của bạn" type="password" required />
+                        <span class="absolute mt-3 right-0 pr-4 password-icon-container cursor-pointer" onclick="togglePasswordVisibility()">
+                            <i id="password-icon" class="fas fa-eye text-gray-500"></i>
+                        </span>
                 </div>
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
@@ -58,4 +61,19 @@
             min-height: 100vh;
         }
     </style>
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passwordIcon = document.getElementById('password-icon');
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordIcon.classList.remove('fa-eye');
+                passwordIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                passwordIcon.classList.remove('fa-eye-slash');
+                passwordIcon.classList.add('fa-eye');
+            }
+        }
+    </script>
 @endsection
