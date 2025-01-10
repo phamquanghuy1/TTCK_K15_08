@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BaiBaoKhoaHoc;
 use App\Models\DanhMuc;
-use App\Models\Footer;  
+use App\Models\Footer;
 
 class UserController extends Controller
 {
@@ -14,7 +14,8 @@ class UserController extends Controller
 
     public function user(Request $request)
     {
-        $query = BaiBaoKhoaHoc::with('danhMuc', 'donVi');
+        $query = BaiBaoKhoaHoc::with('danhMuc', 'donVi')
+        ->where('trang_thai', 'activate');
 
         if ($request->filled('tenDeTai')) {
             $query->where('tieu_de', 'like', '%' . $request->tenDeTai . '%');
@@ -38,7 +39,7 @@ class UserController extends Controller
             $query->where('tac_gia', 'like', '%' . $request->tacGia . '%');
         }
 
-        $articles = $query->get();
+        $articles = $query->paginate(5);
         $categories = DanhMuc::all();
         $thanhViens = Footer::all();
         return view('user.index', compact('articles','categories','thanhViens'));

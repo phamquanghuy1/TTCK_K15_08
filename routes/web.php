@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
+use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\UserController;
 use App\Models\Footer;
@@ -15,9 +16,12 @@ Route::get('/', function () {
 
 //admin
 Route::group(['middleware'=>'admin'],function(){
-    Route::get('/admin',function(){
-        return view('admin.index');
-    });
+    Route::get('/admin/dashboard',[AdminController::class,'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/qluser',[AdminController::class,'qluser'])->name('admin.qluser');
+    Route::get('/admin/qltacgia',[AdminController::class,'qltacgia'])->name('admin.qltacgia');
+    Route::get('/admin/qlbaiviet',[AdminController::class,'qlbaiviet'])->name('admin.qlbaiviet');
+    Route::get('/admin/qldetai',[AdminController::class,'qldetai'])->name('admin.qldetai');
+    Route::get('/admin/qldanhmuc',[AdminController::class,'qldanhmuc'])->name('admin.qldanhmuc');
 });
 
 //user

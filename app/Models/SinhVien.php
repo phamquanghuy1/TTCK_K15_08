@@ -10,6 +10,7 @@ class SinhVien extends Model
     use HasFactory;
     protected $table = 'sinh_vien';
     protected $fillable = [
+        'trang_thai',
         'ten_sinh_vien',
         'gioi_tinh',
         'dien_thoai',

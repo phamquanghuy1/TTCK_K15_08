@@ -116,8 +116,8 @@
     {{-- footer --}}
     <footer class="bg-white shadow mt-8">
         <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div class="col-span-12 md:col-span-6">
                     <h5 class="text-xl font-bold mb-4">
                         Về chúng tôi
                     </h5>
@@ -130,7 +130,7 @@
                         </p>
                     @endforeach
                 </div>
-                <div>
+                <div class="col-span-12 md:col-span-3">
                     <h5 class="text-xl font-bold mb-4">
                         Liên hệ
                     </h5>
@@ -143,7 +143,7 @@
                             395 645</a>
                     </p>
                 </div>
-                <div>
+                <div class="col-span-12 md:col-span-3">
                     <h5 class="text-xl font-bold mb-4">
                         Theo dõi chúng tôi
                     </h5>

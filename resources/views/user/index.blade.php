@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-12 gap-4">
     <!-- Left Content -->
-    <div class="content_left col-span-12 md:col-span-3 bg-white p-4 shadow rounded">
+    <div class="content_left col-span-12 md:col-span-2 bg-white p-4 shadow rounded">
         <h2 class="text-xl font-bold mb-4">Danh mục</h2>
         <ul class="space-y-2">
             @foreach ($categories as $category)
@@ -17,8 +17,8 @@
     </div>
 
     <!-- Main Content -->
-    <div class="content_main col-span-12 md:col-span-6 bg-white p-6 shadow rounded">
-        <h2 class="text-2xl font-bold mb-6">Tìm kiếm</h2>
+    <div class="content_main col-span-12 md:col-span-8 bg-white p-6 shadow rounded">
+        <h2 class="text-2xl font-bold mb-4">Tìm kiếm</h2>
         <form action="{{ route('user.index') }}" method="GET" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -77,7 +77,7 @@
         @if ($articles->isEmpty())
             <p class="text-center text-gray-700">Không tìm thấy bài báo nào</p>
         @else
-        <div class="content_main flex-1 p-4 overflow-x-auto max-h-screen">
+        <div class="content_main flex-1 p-4 overflow-y-auto max-h-full">
             <div class="grid grid-cols-1 gap-6">
                 @foreach($articles as $article)
                     <a href="#" class="bg-white p-4 rounded-md shadow hover:shadow-lg transition-shadow w-full">
@@ -105,12 +105,15 @@
                     </a>
                 @endforeach
             </div>
+            <div class="mt-4">
+                {{ $articles->links() }}
+            </div>
         </div>
         @endif
     </div>
 
     <!-- Right Content -->
-    <div class="content_right col-span-12 md:col-span-3 bg-white p-4 shadow rounded">
+    <div class="content_right col-span-12 md:col-span-2 bg-white p-4 shadow rounded">
 
     </div>
 </div>

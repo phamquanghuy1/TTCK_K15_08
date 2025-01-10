@@ -16,7 +16,7 @@ class AuthController extends Controller
         $status = Auth::attempt($credentials);
         if ($status) {
             if (Auth::user()->phan_quyen == 'admin') {
-                return redirect('/admin')->with('success', 'Đăng nhập thành công');
+                return redirect('/admin/dashboard')->with('success', 'Đăng nhập thành công');
             }
             return redirect('/user')->with('success', 'Đăng nhập thành công');
         }

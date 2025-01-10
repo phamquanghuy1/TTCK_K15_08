@@ -10,6 +10,7 @@ class CanBo extends Model
     use HasFactory;
     protected $table = 'can_bo';
     protected $fillable = [
+        'trang_thai',
         'ten_can_bo',
         'gioi_tinh',
         'dien_thoai',

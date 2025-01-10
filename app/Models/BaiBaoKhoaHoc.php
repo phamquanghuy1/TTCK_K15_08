@@ -11,6 +11,7 @@ class BaiBaoKhoaHoc extends Model
 
     protected $table = 'bai_bao_khoa_hoc'; // Chỉ định tên bảng chính xác
     protected $fillable = [
+        'trang_thai',
         'ma_de_tai',
         'tieu_de',
         'tac_gia',

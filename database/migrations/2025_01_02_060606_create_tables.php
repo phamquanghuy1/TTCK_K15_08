@@ -47,6 +47,7 @@ class CreateTables extends Migration
 
         Schema::create('can_bo', function (Blueprint $table) {
             $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->string('ten_can_bo');
             $table->string('gioi_tinh');
             $table->string('dien_thoai');
@@ -58,6 +59,7 @@ class CreateTables extends Migration
 
         Schema::create('sinh_vien', function (Blueprint $table) {
             $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->string('ten_sinh_vien');
             $table->string('gioi_tinh');
             $table->string('dien_thoai');
@@ -212,6 +214,7 @@ class CreateTables extends Migration
 
         Schema::create('bai_bao_khoa_hoc', function (Blueprint $table) {
             $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->unsignedBigInteger('ma_de_tai');
             $table->string('tieu_de');
             $table->string('tac_gia');
