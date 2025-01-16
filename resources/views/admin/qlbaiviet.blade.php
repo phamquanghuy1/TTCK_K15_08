@@ -1,105 +1,357 @@
 @extends('layout.admin_layout')
 @section('title', 'Quản lý bài viết')
 @section('content')
-<div class="bg-white p-6 rounded-lg shadow-lg">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-semibold text-gray-800">Danh sách người dùng</h2>
-        <form class="flex items-center space-x-4">
-            <div class="relative w-64">
-                <input type="text"
-                    class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
-                    placeholder="Tìm kiếm người dùng" />
-                <span class="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <i class="fas fa-search text-gray-400"></i>
-                </span>
-            </div>
+    <!-- Tìm kiếm người dùng -->
+    <form class="mb-6 flex justify-center items-center space-x-4" method="GET" action="{{ route('admin.qlbaiviet') }}">
+        <div class="relative w-3/4">
+            <input type="text" name="search"
+                class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                placeholder="Tìm kiếm bài viết..." value="{{ request('search') }}" />
+            <span class="absolute inset-y-0 right-0 flex items-center pr-3">
+                <i class="fas fa-search text-gray-400"></i>
+            </span>
+        </div>
+        <select name="status" class="p-3 border rounded">
+            <option value="">Tất cả trạng thái</option>
+            <option value="deactivate" {{ request('status') == 'deactivate' ? 'selected' : '' }}>Chờ duyệt</option>
+            <option value="activate" {{ request('status') == 'activate' ? 'selected' : '' }}>Đã duyệt</option>
+            <option value="cancel" {{ request('status') == 'cancel' ? 'selected' : '' }}>Từ chối</option>
+        </select>
+        <button
+            class="flex items-center bg-blue-500 text-white py-3 px-6 rounded-md shadow-md hover:bg-blue-600 transform transition-all duration-300 ease-in-out focus:outline-none text-sm whitespace-nowrap">
+            Tìm kiếm
+        </button>
+    </form>
+    <!-- Bảng Quản lý người dùng -->
+    <div class="bg-white p-8 rounded-lg shadow-2xl max-w-6xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold text-gray-800">Danh sách bài viết</h2>
             <button
-                class="bg-blue-500 text-white py-3 px-6 rounded-md shadow-md hover:bg-blue-600 transform transition-all duration-300 ease-in-out focus:outline-none text-sm">
-                Tìm kiếm
+                class="bg-blue-600 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onclick="openAddArticleModal()">
+                Thêm bài viết
             </button>
-        </form>
-    </div>
-    <div class="overflow-y-scroll scroll-hidden max-h-[calc(7*2.5rem)] border border-gray-300 rounded">
-        <table class="min-w-full table-auto border-collapse border border-gray-300">
-            <thead class="bg-blue-100">
-                <tr>
-                    <th class="px-4 py-2 text-left font-medium text-gray-700 border border-gray-300">ID</th>
-                    <th class="px-4 py-2 text-left font-medium text-gray-700 border border-gray-300">Họ và Tên</th>
-                    <th class="px-4 py-2 text-left font-medium text-gray-700 border border-gray-300">Email</th>
-                    <th class="px-4 py-2 text-left font-medium text-gray-700 border border-gray-300">Trạng thái</th>
-                    <th class="px-4 py-2 text-center font-medium text-gray-700 border border-gray-300">Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">1</td>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">Cấn Đình Duy</td>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">duy@gmail.com</td>
-                    <td class="px-4 py-2 text-green-600 border border-gray-300">Hoạt động</td>
-                    <td class="px-4 py-2 text-center border border-gray-300">
-                        <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Sửa</button>
-                        <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Xóa</button>
-                        <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Vô hiệu hóa</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">2</td>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">Phạm Quang Huy</td>
-                    <td class="px-4 py-2 text-gray-700 border border-gray-300">huy@gmail.com</td>
-                    <td class="px-4 py-2 text-red-600 border border-gray-300">Đã vô hiệu hóa</td>
-                    <td class="px-4 py-2 text-center border border-gray-300">
-                        <button class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Sửa</button>
-                        <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Xóa</button>
-                        <button class="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600">Kích hoạt</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <!-- Modal Thêm người dùng -->
-        <div id="addUserModal" class="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center hidden">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
-                <h3 class="text-xl font-semibold mb-4">Thêm người dùng mới</h3>
-                <form>
-                    <div class="mb-4">
-                        <label for="name" class="block text-gray-700">Họ và Tên</label>
-                        <input type="text" id="name" class="w-full p-2 border rounded"
-                            placeholder="Nhập họ tên" />
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700">Email</label>
-                        <input type="email" id="email" class="w-full p-2 border rounded"
-                            placeholder="Nhập email" />
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="block text-gray-700">Mật khẩu</label>
-                        <input type="password" id="password" class="w-full p-2 border rounded"
-                            placeholder="Nhập mật khẩu" />
-                    </div>
-                    <div class="mb-4">
-                        <label for="role" class="block text-gray-700">Vai trò</label>
-                        <select id="role" class="w-full p-2 border rounded">
-                            <option value="admin">Admin</option>
-                            <option value="giangvien">Giảng viên</option>
-                            <option value="sinhvien">Sinh viên</option>
-                        </select>
-                    </div>
-                    <div class="flex justify-end">
-                        <button type="button" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Thêm</button>
-                        <button type="button" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 ml-2"
-                            onclick="closeAddUserForm()">Hủy</button>
-                    </div>
-                </form>
+        </div>
+        <div class="overflow-x-auto w-auto">
+            <div class="overflow-y-auto max-h-[400px] border border-gray-300 rounded-lg shadow-md">
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto border-collapse text-sm">
+                        <thead class="bg-blue-100 text-gray-700">
+                            <tr>
+                                <th class="px-3 py-3 text-left font-medium border border-gray-300">STT</th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Tiêu đề</th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300">Mô tả</th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300">Tác giả</th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300">Danh mục</th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Ngày phát hành
+                                </th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Trạng thái</th>
+                                <th class="px-6 py-3 text-center font-medium border border-gray-300">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($baiBaoKhoaHocs as $baiBao)
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="px-5 py-2 text-gray-700 border border-gray-300 truncate">
+                                        {{ ($baiBaoKhoaHocs->currentPage() - 1) * $baiBaoKhoaHocs->perPage() + $loop->iteration }}
+                                    </td>
+                                    <td class="px-3 py-3 text-gray-700 border border-gray-300 truncate">
+                                        {{ $baiBao->tieu_de }}</td>
+                                    <td class="px-3 py-3 text-gray-700 border border-gray-300">
+                                        {{ $baiBao->mo_ta }}</td>
+                                    <td class="px-3 py-3 text-gray-700 border border-gray-300 truncate">
+                                        {{ $baiBao->tac_gia }}</td>
+                                    <td class="px-3 py-3 text-gray-700 border border-gray-300 truncate">
+                                        {{ $baiBao->danhMuc->ten_danh_muc }}</td>
+                                    <td class="px-3 py-3 text-gray-600 border border-gray-300 truncate">
+                                        {{ $baiBao->ngay_phat_hanh }}
+                                    </td>
+                                    <td class="px-3 py-3 border border-gray-300 truncate">
+                                        @if ($baiBao->trang_thai == 'activate')
+                                            <span class="text-green-600">Đã phê duyệt</span>
+                                        @elseif($baiBao->trang_thai == 'deactivate')
+                                            <span class="text-yellow-600">Chờ phê duyệt</span>
+                                        @elseif($baiBao->trang_thai == 'cancel')
+                                            <span class="text-red-600">Đã hủy</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-3 py-3 text-center border border-gray-300 truncate">
+                                        @if ($baiBao->trang_thai == 'deactivate')
+                                            <form action="{{ route('update_article_status') }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                <input type="hidden" name="article_id" value="{{ $baiBao->id }}">
+                                                <input type="hidden" name="status" value="activate">
+                                                <button type="submit"
+                                                    class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    Hiển thị
+                                                </button>
+                                            </form>
+                                        @elseif ($baiBao->trang_thai == 'activate')
+                                            <form action="{{ route('update_article_status') }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                <input type="hidden" name="article_id" value="{{ $baiBao->id }}">
+                                                <input type="hidden" name="status" value="deactivate">
+                                                <button type="submit"
+                                                    class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                    Ẩn bài viết
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <button
+                                            class="bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-gray-400"
+                                            onclick="openEditArticleModal({{ $baiBao->id }})">
+                                            Cập nhật
+                                        </button>
+                                        <form action="{{ route('delete_article', $baiBao->id) }}" method="POST"
+                                            class="inline"
+                                            onsubmit="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">
+                                            @csrf
+                                            <button type="submit"
+                                                class="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400">
+                                                Xóa
+                                            </button>
+                                        </form>
+                                    </td>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="flex justify-between items-center mt-6">
+                {{ $baiBaoKhoaHocs->links() }}
             </div>
         </div>
     </div>
-</div>
-        <script>
-            function openAddUserForm() {
-                document.getElementById('addUserModal').classList.remove('hidden');
+    <!-- Modal Thêm bài viết -->
+    <div id="AddModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white rounded-lg p-6 w-1/2">
+            <h2 class="text-xl font-bold mb-4">Thêm bài viết</h2>
+            <form method="POST" action="{{ route('add_bai_viet') }}" enctype="multipart/form-data">
+                @csrf
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tiêu đề</label>
+                    <input name="tieu_de" type="text" class="p-2 border rounded w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tóm tắt</label>
+                    <textarea name="mo_ta" class="p-2 border rounded w-full" required></textarea>
+                </div>
+                <div class="mb-4 relative">
+                    <label class="block text-gray-700">Tác giả</label>
+                    <input type="text" id="search_author" class="p-2 border rounded w-full"
+                        placeholder="Tìm kiếm tác giả..." />
+                    <input type="hidden" name="tac_gia" id="selected_author" />
+                    <div id="author_suggestions" class="hidden absolute z-10 w-full bg-white border rounded-lg shadow-lg">
+                    </div>
+                </div>
+                <div class="mb-4 relative">
+                    <label class="block text-gray-700">Tên đề tài</label>
+                    <input type="text" id="search_topic" class="p-2 border rounded w-full"
+                        placeholder="Tìm kiếm đề tài..." />
+                    <input type="hidden" name="ma_de_tai" id="selected_topic" />
+                    <div id="topic_suggestions" class="hidden absolute z-10 w-full bg-white border rounded-lg shadow-lg">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Loại danh mục</label>
+                    <select name="ma_danh_muc" class="p-2 border rounded w-full" required>
+                        <option value="">Chọn danh mục</option>
+                        @foreach ($danhMucs as $danhMuc)
+                            <option value="{{ $danhMuc->id }}">{{ $danhMuc->ten_danh_muc }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Ngày phát hành</label>
+                    <input name="ngay_phat_hanh" type="date" class="p-2 border rounded w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Ảnh bìa</label>
+                    <input name="img" type="file" accept="image/*" class="p-2 border rounded w-full" />
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="submit"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Thêm</button>
+                    <button type="button" onclick="closeAddModal()"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal sửa bài viết -->
+    <div id="EditModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div class="bg-white rounded-lg p-6 w-1/2">
+            <h2 class="text-xl font-bold mb-4">Cập nhật bài viết</h2>
+            <form id="editForm" method="POST" action="{{ route('update_article') }}" enctype="multipart/form-data">
+                @csrf
+                <input type="hidden" name="id" id="editArticleId">
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tiêu đề</label>
+                    <input name="tieu_de" id="editTieuDe" type="text" class="p-2 border rounded w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tóm tắt</label>
+                    <textarea name="mo_ta" id="editMoTa" class="p-2 border rounded w-full" required></textarea>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Tác giả</label>
+                    <input name="tac_gia" id="editTacGia" type="text" class="p-2 border rounded w-full" required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Danh mục</label>
+                    <select name="ma_danh_muc" id="editDanhMuc" class="p-2 border rounded w-full" required>
+                        <option value="">Chọn danh mục</option>
+                        @foreach ($danhMucs as $danhMuc)
+                            <option value="{{ $danhMuc->id }}">{{ $danhMuc->ten_danh_muc }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Đơn vị</label>
+                    <select name="ma_don_vi" id="editDonVi" class="p-2 border rounded w-full" required>
+                        <option value="">Chọn đơn vị</option>
+                        @foreach ($donVis as $donVi)
+                            <option value="{{ $donVi->id }}">{{ $donVi->ten_don_vi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Ngày phát hành</label>
+                    <input name="ngay_phat_hanh" id="editNgayPhatHanh" type="date" class="p-2 border rounded w-full"
+                        required />
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700">Ảnh bìa</label>
+                    <input name="img" id="editImg" type="file" accept="image/*" class="p-2 border rounded w-full" />
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Cập
+                        nhật</button>
+                    <button type="button" onclick="closeEditModal()"
+                        class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Hủy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openEditArticleModal(id) {
+            fetch(`/admin/articles/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('editArticleId').value = data.id;
+                    document.getElementById('editTieuDe').value = data.tieu_de;
+                    document.getElementById('editMoTa').value = data.mo_ta;
+                    document.getElementById('editTacGia').value = data.tac_gia;
+                    document.getElementById('editDanhMuc').value = data.ma_danh_muc;
+                    document.getElementById('editDonVi').value = data.ma_don_vi;
+                    document.getElementById('editNgayPhatHanh').value = data.ngay_phat_hanh;
+                    document.getElementById('EditModal').classList.remove('hidden');
+                });
+        }
+
+        function closeEditModal() {
+            document.getElementById('EditModal').classList.add('hidden');
+        }
+        // Author search
+        let authorTimeout;
+        document.getElementById('search_author').addEventListener('input', function(e) {
+            clearTimeout(authorTimeout);
+            const searchText = e.target.value.trim();
+            const suggestions = document.getElementById('author_suggestions');
+
+            // Hide suggestions if search text is empty
+            if (!searchText) {
+                suggestions.classList.add('hidden');
+                return;
             }
 
-            function closeAddUserForm() {
-                document.getElementById('addUserModal').classList.add('hidden');
+            authorTimeout = setTimeout(() => {
+                fetch(`/api/search-authors?search=${searchText}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestions.innerHTML = '';
+
+                        if (data.length > 0) {
+                            suggestions.classList.remove('hidden');
+                            data.forEach(author => {
+                                const div = document.createElement('div');
+                                div.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+                                div.textContent = `${author.ten} (${author.email})`;
+                                div.onclick = () => {
+                                    document.getElementById('search_author').value = author
+                                        .ten;
+                                    document.getElementById('selected_author').value =
+                                        author.ten;
+                                    suggestions.classList.add('hidden');
+                                };
+                                suggestions.appendChild(div);
+                            });
+                        } else {
+                            suggestions.classList.add('hidden');
+                        }
+                    });
+            }, 300);
+        });
+
+        // Topic search
+        let topicTimeout;
+        document.getElementById('search_topic').addEventListener('input', function(e) {
+            clearTimeout(topicTimeout);
+            const searchText = e.target.value.trim();
+            const suggestions = document.getElementById('topic_suggestions');
+
+            // Hide suggestions if search text is empty
+            if (!searchText) {
+                suggestions.classList.add('hidden');
+                return;
             }
-        </script>
+
+            topicTimeout = setTimeout(() => {
+                fetch(`/api/search-topics?search=${searchText}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestions.innerHTML = '';
+
+                        if (data.length > 0) {
+                            suggestions.classList.remove('hidden');
+                            data.forEach(topic => {
+                                const div = document.createElement('div');
+                                div.className = 'p-2 hover:bg-gray-100 cursor-pointer';
+                                div.textContent = topic.ten_de_tai;
+                                div.onclick = () => {
+                                    // Set both display text and hidden ID value
+                                    document.getElementById('search_topic').value = topic
+                                        .ten_de_tai;
+                                    document.getElementById('selected_topic').value = topic
+                                        .id; // Set ma_de_tai
+                                    suggestions.classList.add('hidden');
+                                };
+                                suggestions.appendChild(div);
+                            });
+                        } else {
+                            suggestions.classList.add('hidden');
+                        }
+                    });
+            }, 300);
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.matches('#search_author, #search_topic')) {
+                document.getElementById('author_suggestions').classList.add('hidden');
+                document.getElementById('topic_suggestions').classList.add('hidden');
+            }
+        });
+
+        function openAddArticleModal() {
+            document.getElementById("AddModal").classList.remove("hidden");
+        }
+
+        function closeAddModal() {
+            document.getElementById("AddModal").classList.add("hidden")
+        }
+    </script>
 @endsection

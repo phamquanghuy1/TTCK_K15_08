@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class DeTai extends Model
 {
     use HasFactory;
-    protected $table = 'de_tai';
+    protected $table = 'de_tais';
     protected $fillable = [
+        'trang_thai',
         'ten_de_tai',
         'kinh_phi',
         'noi_dung_nghien_cuu',

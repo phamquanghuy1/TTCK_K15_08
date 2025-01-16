@@ -9,11 +9,12 @@ class BaiBaoKhoaHoc extends Model
 {
     use HasFactory;
 
-    protected $table = 'bai_bao_khoa_hoc'; // Chỉ định tên bảng chính xác
+    protected $table = 'bai_bao_khoa_hocs'; // Chỉ định tên bảng chính xác
     protected $fillable = [
         'trang_thai',
         'ma_de_tai',
         'tieu_de',
+        'mo_ta',
         'tac_gia',
         'ngay_phat_hanh',
         'ma_don_vi',

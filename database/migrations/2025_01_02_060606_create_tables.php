@@ -7,7 +7,7 @@ class CreateTables extends Migration
 {
     public function up()
     {
-        Schema::create('don_vi', function (Blueprint $table) {
+        Schema::create('don_vis', function (Blueprint $table) {
             $table->id();
             $table->string('ten_don_vi');
             $table->string('dia_chi');
@@ -16,7 +16,7 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('footer', function (Blueprint $table) {
+        Schema::create('footers', function (Blueprint $table) {
             $table->id();
             $table->string('thanh_vien');
             $table->string('email');
@@ -25,14 +25,15 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('danh_muc', function (Blueprint $table) {
+        Schema::create('danh_mucs', function (Blueprint $table) {
             $table->id();
             $table->string('ten_danh_muc');
             $table->timestamps();
         });
 
-        Schema::create('de_tai', function (Blueprint $table) {
+        Schema::create('de_tais', function (Blueprint $table) {
             $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->string('ten_de_tai');
             $table->decimal('kinh_phi', 15, 2);
             $table->text('noi_dung_nghien_cuu');
@@ -45,31 +46,31 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('can_bo', function (Blueprint $table) {
+        Schema::create('can_bos', function (Blueprint $table) {
             $table->id();
             $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->string('ten_can_bo');
             $table->string('gioi_tinh');
             $table->string('dien_thoai');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->unsignedBigInteger('ma_don_vi');
             $table->foreign('ma_don_vi')->references('id')->on('don_vi')->cascadeOnDelete();
             $table->timestamps();
         });
 
-        Schema::create('sinh_vien', function (Blueprint $table) {
+        Schema::create('sinh_viens', function (Blueprint $table) {
             $table->id();
             $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->string('ten_sinh_vien');
             $table->string('gioi_tinh');
             $table->string('dien_thoai');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->unsignedBigInteger('ma_don_vi');
             $table->foreign('ma_don_vi')->references('id')->on('don_vi')->cascadeOnDelete();
             $table->timestamps();
         });
 
-        Schema::create('dang_ky_de_tai_cb', function (Blueprint $table) {
+        Schema::create('dang_ky_de_tai_cbs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_can_bo');
@@ -83,7 +84,7 @@ class CreateTables extends Migration
             $table->foreign('ma_can_bo')->references('id')->on('can_bo')->cascadeOnDelete();
         });
 
-        Schema::create('dang_ky_de_tai_sv', function (Blueprint $table) {
+        Schema::create('dang_ky_de_tai_svs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_sinh_vien');
@@ -97,7 +98,7 @@ class CreateTables extends Migration
             $table->foreign('ma_sinh_vien')->references('id')->on('sinh_vien')->cascadeOnDelete();
         });
 
-        Schema::create('danh_sach_cb_nghien_cuu_dt', function (Blueprint $table) {
+        Schema::create('danh_sach_cb_nghien_cuu_dts', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_can_bo');
             $table->timestamps();
@@ -106,7 +107,7 @@ class CreateTables extends Migration
             $table->foreign('ma_can_bo')->references('id')->on('can_bo')->cascadeOnDelete();
         });
 
-        Schema::create('danh_sach_sv_nghien_cuu_dt', function (Blueprint $table) {
+        Schema::create('danh_sach_sv_nghien_cuu_dts', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_sinh_vien');
             $table->timestamps();
@@ -115,7 +116,7 @@ class CreateTables extends Migration
             $table->foreign('ma_sinh_vien')->references('id')->on('sinh_vien')->cascadeOnDelete();
         });
 
-        Schema::create('danh_sach_cb_huong_dan_dt', function (Blueprint $table) {
+        Schema::create('danh_sach_cb_huong_dan_dts', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_can_bo');
             $table->timestamps();
@@ -124,7 +125,7 @@ class CreateTables extends Migration
             $table->foreign('ma_can_bo')->references('id')->on('can_bo')->cascadeOnDelete();
         });
 
-        Schema::create('bao_cao_tien_do_cb', function (Blueprint $table) {
+        Schema::create('bao_cao_tien_do_cbs', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_can_bo');
             $table->unsignedBigInteger('ma_de_tai');
             $table->integer('lan_bao_cao');
@@ -137,7 +138,7 @@ class CreateTables extends Migration
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
         });
 
-        Schema::create('bao_cao_tien_do_sv', function (Blueprint $table) {
+        Schema::create('bao_cao_tien_do_svs', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_sinh_vien');
             $table->unsignedBigInteger('ma_de_tai');
             $table->integer('lan_bao_cao');
@@ -150,7 +151,7 @@ class CreateTables extends Migration
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
         });
 
-        Schema::create('quyet_dinh_nghiem_thu_cb', function (Blueprint $table) {
+        Schema::create('quyet_dinh_nghiem_thu_cbs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_can_bo');
@@ -162,7 +163,7 @@ class CreateTables extends Migration
             $table->foreign('ma_can_bo')->references('id')->on('can_bo')->cascadeOnDelete();
         });
 
-        Schema::create('quyet_dinh_nghiem_thu_sv', function (Blueprint $table) {
+        Schema::create('quyet_dinh_nghiem_thu_svs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_de_tai');
             $table->unsignedBigInteger('ma_sinh_vien');
@@ -174,7 +175,7 @@ class CreateTables extends Migration
             $table->foreign('ma_sinh_vien')->references('id')->on('sinh_vien')->cascadeOnDelete();
         });
 
-        Schema::create('hoi_dong_nghiem_thu', function (Blueprint $table) {
+        Schema::create('hoi_dong_nghiem_thus', function (Blueprint $table) {
             $table->unsignedBigInteger('ma_quyet_dinh');
             $table->unsignedBigInteger('ma_can_bo');
             $table->unsignedBigInteger('ma_de_tai');
@@ -186,7 +187,7 @@ class CreateTables extends Migration
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
         });
 
-        Schema::create('ket_qua_bao_ve_cb', function (Blueprint $table) {
+        Schema::create('ket_qua_bao_ve_cbs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_can_bo');
             $table->unsignedBigInteger('ma_de_tai');
@@ -199,7 +200,7 @@ class CreateTables extends Migration
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
         });
 
-        Schema::create('ket_qua_bao_ve_sv', function (Blueprint $table) {
+        Schema::create('ket_qua_bao_ve_svs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('ma_sinh_vien');
             $table->unsignedBigInteger('ma_de_tai');
@@ -212,7 +213,7 @@ class CreateTables extends Migration
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
         });
 
-        Schema::create('bai_bao_khoa_hoc', function (Blueprint $table) {
+        Schema::create('bai_bao_khoa_hocs', function (Blueprint $table) {
             $table->id();
             $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
             $table->unsignedBigInteger('ma_de_tai');
@@ -222,7 +223,7 @@ class CreateTables extends Migration
             $table->unsignedBigInteger('ma_don_vi');
             $table->unsignedBigInteger('ma_danh_muc');
             $table->text('noi_dung');
-            $table->string('img');
+            $table->text('img');
             $table->timestamps();
 
             $table->foreign('ma_de_tai')->references('id')->on('de_tai')->cascadeOnDelete();
@@ -249,23 +250,24 @@ class CreateTables extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::dropIfExists('bai_bao_khoa_hoc');
-        Schema::dropIfExists('ket_qua_bao_ve_sv');
-        Schema::dropIfExists('ket_qua_bao_ve_cb');
-        Schema::dropIfExists('hoi_dong_nghiem_thu');
-        Schema::dropIfExists('quyet_dinh_nghiem_thu_sv');
-        Schema::dropIfExists('quyet_dinh_nghiem_thu_cb');
-        Schema::dropIfExists('bao_cao_tien_do_sv');
-        Schema::dropIfExists('bao_cao_tien_do_cb');
-        Schema::dropIfExists('danh_sach_cb_huong_dan_dt');
-        Schema::dropIfExists('danh_sach_sv_nghien_cuu_dt');
-        Schema::dropIfExists('danh_sach_cb_nghien_cuu_dt');
-        Schema::dropIfExists('dang_ky_de_tai_sv');
-        Schema::dropIfExists('dang_ky_de_tai_cb');
-        Schema::dropIfExists('sinh_vien');
-        Schema::dropIfExists('can_bo');
-        Schema::dropIfExists('de_tai');
-        Schema::dropIfExists('danh_muc');
-        Schema::dropIfExists('don_vi');
+        Schema::dropIfExists('bai_bao_khoa_hocs');
+        Schema::dropIfExists('ket_qua_bao_ve_svs');
+        Schema::dropIfExists('ket_qua_bao_ve_cbs');
+        Schema::dropIfExists('hoi_dong_nghiem_thus');
+        Schema::dropIfExists('quyet_dinh_nghiem_thu_svs');
+        Schema::dropIfExists('quyet_dinh_nghiem_thu_cbs');
+        Schema::dropIfExists('bao_cao_tien_do_svs');
+        Schema::dropIfExists('bao_cao_tien_do_cbs');
+        Schema::dropIfExists('danh_sach_cb_huong_dan_dts');
+        Schema::dropIfExists('danh_sach_sv_nghien_cuu_dts');
+        Schema::dropIfExists('danh_sach_cb_nghien_cuu_dts');
+        Schema::dropIfExists('dang_ky_de_tai_svs');
+        Schema::dropIfExists('dang_ky_de_tai_cbs');
+        Schema::dropIfExists('sinh_viens');
+        Schema::dropIfExists('can_bos');
+        Schema::dropIfExists('de_tais');
+        Schema::dropIfExists('danh_mucs');
+        Schema::dropIfExists('don_vis');
+        Schema::dropIfExists('footers');
     }
 }

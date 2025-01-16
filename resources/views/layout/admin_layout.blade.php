@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 </head>
-<body class="bg-gray-100">
-    <div class="flex">
+<body class="bg-gray-100 h-screen">
+    <div class="flex h-full">
         <!-- Sidebar -->
-        <div class="w-64 bg-blue-800 text-white h-screen p-5">
+        <div class="w-64 bg-blue-800 text-white h-screen p-5 fixed">
             <h2 class="text-3xl font-bold text-center mb-6">NCKH Admin</h2>
             <ul>
                 <li class="mb-4">
@@ -46,13 +46,13 @@
                 <li class="mb-4">
                     <a href="/admin/qldanhmuc" class="flex items-center space-x-3 hover:bg-blue-700 p-2 rounded">
                         <i class="fas fa-list"></i>
-                        <span>Quản lý danh mục</span>
+                        <span>Quản lý loại đề tài</span>
                     </a>
                 </li>
             </ul>
         </div>
         <!-- Main Content -->
-        <div class="flex-1 p-8">
+        <div class="flex-1 p-6 ml-64 overflow-auto">
             <!-- Header -->
             <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-lg shadow-lg">
                 <h1 class="text-3xl font-bold">@yield('title')</h1>
