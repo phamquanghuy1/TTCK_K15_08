@@ -78,7 +78,7 @@
                 @csrf
                 <div class="mb-4">
                     <label class="block text-gray-700">Tên loại đề tài</label>
-                    <input name="ten_danh_muc" type="text" class="p-2 border rounded w-full" required />
+                    <input name="ten_danh_muc" type="text" class="p-2 border rounded w- full" required />
                 </div>
                 <div class="flex justify-end space-x-2">
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Thêm</button>

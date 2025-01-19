@@ -14,5 +14,6 @@ class Footer extends Model
         'email',
         'so_dien_thoai',
         'dia_chi',
+        'khoa',
     ];
 }

@@ -45,6 +45,8 @@
                                 <th class="px-6 py-3 text-left font-medium border border-gray-300">Danh mục</th>
                                 <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Ngày phát hành
                                 </th>
+                                <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Ảnh bìa
+                                </th>
                                 <th class="px-6 py-3 text-left font-medium border border-gray-300 truncate">Trạng thái</th>
                                 <th class="px-6 py-3 text-center font-medium border border-gray-300">Hành động</th>
                             </tr>
@@ -63,8 +65,11 @@
                                         {{ $baiBao->tac_gia }}</td>
                                     <td class="px-3 py-3 text-gray-700 border border-gray-300 truncate">
                                         {{ $baiBao->danhMuc->ten_danh_muc }}</td>
-                                    <td class="px-3 py-3 text-gray-600 border border-gray-300 truncate">
+                                    <td class="px-3 py-3 text-gray-600 border border-gray-300 text-center truncate">
                                         {{ $baiBao->ngay_phat_hanh }}
+                                    </td>
+                                    <td class="px-3 py-3 text-gray-600 border border-gray-300 text-center">
+                                        <img class="w-20 h-20 object-cover" src="{{ $baiBao->img }}" alt="Hình ảnh">
                                     </td>
                                     <td class="px-3 py-3 border border-gray-300 truncate">
                                         @if ($baiBao->trang_thai == 'activate')
@@ -224,7 +229,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Ảnh bìa</label>
-                    <input name="img" id="editImg" type="file" accept="image/*" class="p-2 border rounded w-full" />
+                    <input name="img" id="editImg" type="file" class="p-2 border rounded w-full" />
                 </div>
                 <div class="flex justify-end space-x-2">
                     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Cập

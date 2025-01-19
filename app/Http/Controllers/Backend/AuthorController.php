@@ -77,15 +77,16 @@ class AuthorController extends Controller
         );
         return view('admin.qltacgia', compact('authors', 'donVis', 'search', 'status'));
     }
+    
     public function addAuthor(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'gender' => 'required|in:Nam,Nữ',
-            'email' => 'required|string|email|max:255|unique:sinh_vien,email|unique:can_bo,email',
+            'email' => 'required|string|email|max:255|unique:sinh_viens,email|unique:can_bos,email',
             'tel' => 'required|string|max:15',
             'role' => 'required|in:SinhVien,CanBo',
-            'don_vi' => 'required|exists:don_vi,id',
+            'don_vi' => 'required|exists:don_vis,id',
             'status' => 'required|in:activate,deactivate',
         ]);
         $data = [

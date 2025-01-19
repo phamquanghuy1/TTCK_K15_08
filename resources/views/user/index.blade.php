@@ -6,12 +6,12 @@
 <form action="{{ route('user.index') }}" method="GET" class="space-y-2 border-b border-gray-300 pb-2">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-            <label for="tenDeTai" class="block text-gray-700 font-semibold">Tiêu đề</label>
+            <label for="tenDeTai" class="block text-gray-700 font-semibold">Từ khóa</label>
             <input
             id="tenDeTai"
             name="tenDeTai"
             value="{{ request('tenDeTai') }}"
-            class="border border-gray-300 p-2 rounded w-full"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text"
             />
         </div>
@@ -21,7 +21,7 @@
             id="khoaDonVi"
             name="khoaDonVi"
             value="{{ request('khoaDonVi') }}"
-            class="border border-gray-300 p-2 rounded w-full"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text" />
         </div>
         <div>
@@ -30,17 +30,22 @@
             id="tacGia"
             name="tacGia"
             value="{{ request('tacGia') }}"
-            class="border border-gray-300 p-2 rounded w-full"
+            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             type="text" />
         </div>
         <div>
             <label for="namXuatBan" class="block text-gray-700 font-semibold">Năm xuất bản</label>
-            <input
-            id="namXuatBan"
-            name="namXuatBan"
-            value="{{ request('namXuatBan') }}"
-            class="border border-gray-300 p-2 rounded w-full"
-            type="number" />
+            <select
+                name="namXuatBan"
+                id="namXuatBan"
+                class="w-full px-4 py-2.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="">Chọn năm</option>
+                    @for($year = date('Y'); $year >= 2010; $year--)
+                        <option value="{{ $year }}" {{ request('search_year') == $year ? 'selected' : '' }}>
+                            {{ $year }}
+                        </option>
+                    @endfor
+            </select>
         </div>
     </div>
     <div>
@@ -79,7 +84,7 @@
                         <h3 class="text-lg font-bold mb-2">
                             {{ $article->tieu_de }}
                         </h3>
-                        <p class="text-gray-700 text-sm mb-2">Mô tả ngắn gọn về bài viết này.</p>
+                        <p class="text-gray-700 text-sm mb-2">{{ $article->mo_ta }}</p>
                         <p class="text-gray-700 text-sm"><strong>Tổ chức:</strong>
                             {{ $article->donVi->ten_don_vi }}
                         </p>

@@ -11,13 +11,41 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\TopicCategoryController;
 use App\Models\Footer;
 use App\Models\DanhMuc;
+use App\Models\BaiBaoKhoaHoc;
+use Illuminate\Http\Request;
 
 //home
-Route::get('/', function () {
+Route::get('/', function (Request $request) {
+    $query = BaiBaoKhoaHoc::with('danhMuc', 'donVi')
+        ->where('trang_thai', 'activate');
+
+    if ($request->filled('tenDeTai')) {
+        $query->where('tieu_de', 'like', '%' . $request->tenDeTai . '%');
+    }
+
+    if ($request->filled('khoaDonVi')) {
+        $query->whereHas('donVi', function ($q) use ($request) {
+            $q->where('ten_don_vi', 'like', '%' . $request->khoaDonVi . '%');
+        });
+    }
+
+    if ($request->filled('danhMucDeTai')) {
+        $query->where('ma_danh_muc', $request->danhMucDeTai);
+    }
+
+    if ($request->filled('namXuatBan')) {
+        $query->whereYear('ngay_phat_hanh', $request->namXuatBan);
+    }
+
+    if ($request->filled('tacGia')) {
+        $query->where('tac_gia', 'like', '%' . $request->tacGia . '%');
+    }
+
+    $articles = $query->paginate(5);
     $categories = DanhMuc::all();
     $thanhViens = Footer::all();
-    return view('index', compact('thanhViens', 'categories'));
-});
+    return view('index', compact('thanhViens', 'categories', 'articles'));
+})->name('home');
 
 //admin
 Route::group(['middleware' => 'admin'], function () {
@@ -36,7 +64,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('/api/search-authors', [ArticleController::class, 'searchAuthors']);
     Route::get('/api/search-topics', [ArticleController::class, 'searchTopics']);
     Route::post('/admin/addArticle', [ArticleController::class, 'addArticle'])->name('add_bai_viet');
-    Route::post('/update-article-status', [ArticleController::class, 'updateStatus'])->name('update_article_status');    Route::post('/admin/delete-article/{id}', [ArticleController::class, 'destroy'])->name('delete_article');
+    Route::post('/update-article-status', [ArticleController::class, 'updateStatus'])->name('update_article_status');
+    Route::post('/admin/delete-article/{id}', [ArticleController::class, 'destroy'])->name('delete_article');
     Route::get('/admin/articles/{id}', [ArticleController::class, 'getArticle'])->name('get_article');
     Route::post('/admin/articles/update', [ArticleController::class, 'updateArticle'])->name('update_article');
 
@@ -75,7 +104,7 @@ Route::post("/reg", [AuthController::class, 'xulyreg'])->name('reg');
 //pages
 Route::get("/sanpham", [PagesController::class, 'sanpham']);
 Route::get("/giaithuong", [PagesController::class, 'giaithuong']);
-Route::get("/detai", [PagesController::class, 'detai']);
+Route::get("/detai", [PagesController::class, 'detai'])->name('detai');
 Route::get("/hoithao", [PagesController::class, 'hoithao']);
 
 //users

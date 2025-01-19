@@ -2,7 +2,7 @@
 @section('title', 'Đăng ký')
 @section('content')
     <div class="flex-container mt-6">
-        <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
+        <div class="bg-white shadow-lg rounded-lg p-6 max-w-md w-full">
             <div class="flex justify-center mb-6">
                 <img alt="Company logo" class="rounded-full" height="100"
                     src="https://cdn.haitrieu.com/wp-content/uploads/2021/12/Logo-DH-Kinh-te-Ky-thuat-Cong-nghiep-UNETI.png"

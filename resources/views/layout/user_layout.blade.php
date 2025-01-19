@@ -46,14 +46,11 @@
                             href="{{ Auth::check() ? '/user' : '/' }}">
                             Công bố khoa học
                         </a>
-                        <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/sanpham">
-                            Sản phẩm khoa học
+                        <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/detai">
+                            Đề tài khoa học
                         </a>
                         <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/giaithuong">
                             Giải thưởng khoa học
-                        </a>
-                        <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/detai">
-                            Đề tài khoa học
                         </a>
                         <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/hoithao">
                             Hội thảo - Hội nghị
@@ -116,6 +113,7 @@
             </div>
         </div>
     </nav>
+    
     <div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-12 gap-4">
         <!-- Left Content -->
         <div class="content_left col-span-12 md:col-span-2 bg-white p-4 shadow rounded">
@@ -139,44 +137,58 @@
             </h2>
             <ul class="space-y-4">
                 <li class="flex flex-col items-center">
-                    <a href="https://congthuong.vn/" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2022/09/z3682683099624_b8470248d9d432ed326c991e23a66fda.jpg" alt="" class="w-full h-20 rounded-md">
+                    <a href="https://congthuong.vn/" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2022/09/z3682683099624_b8470248d9d432ed326c991e23a66fda.jpg"
+                            alt="" class="w-full h-20 rounded-md">
                         Báo công thương
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="https://moet.gov.vn/Pages/home.aspx" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Giáo dục - Đào tạo" class="w-full h-20 rounded-md">
+                    <a href="https://moet.gov.vn/Pages/home.aspx" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Giáo dục - Đào tạo"
+                            class="w-full h-20 rounded-md">
                         Bộ Giáo dục - Đào tạo
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="https://moit.gov.vn/" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Công thương" class="w-full h-20 rounded-md">
+                    <a href="https://moit.gov.vn/" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Công thương"
+                            class="w-full h-20 rounded-md">
                         Bộ Công thương
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="http://www.thanhdoanhanoi.gov.vn/" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x2.png" alt="Thanh Đoàn Hà Nội" class="w-full h-20 rounded-md">
+                    <a href="http://www.thanhdoanhanoi.gov.vn/" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x2.png" alt="Thanh Đoàn Hà Nội"
+                            class="w-full h-20 rounded-md">
                         Thanh Đoàn Hà Nội
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="http://khoacntt.uneti.edu.vn" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg" alt="Khoa Công nghệ thông tin" class="w-full h-20 rounded-md">
+                    <a href="http://khoacntt.uneti.edu.vn" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg"
+                            alt="Khoa Công nghệ thông tin" class="w-full h-20 rounded-md">
                         Khoa Công nghệ thông tin
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="http://khoadientu.uneti.edu.vn/" target="_blank" class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg" alt="Khoa điện tử" class="w-full h-20 rounded-md">
+                    <a href="http://khoadientu.uneti.edu.vn/" target="_blank"
+                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg" alt="Khoa điện tử"
+                            class="w-full h-20 rounded-md">
                         Khoa điện tử
                     </a>
                 </li>
                 <li class="flex flex-col items-center">
-                    <a href="https://example.com/ngan-hang-aribank" target="_blank" class="text-gray-700 hover:text-blue-500  text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x5.png" alt="Ngân hàng Aribank" class="w-full h-20 rounded-md">
+                    <a href="https://example.com/ngan-hang-aribank" target="_blank"
+                        class="text-gray-700 hover:text-blue-500  text-center mt-1 w-full">
+                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x5.png" alt="Ngân hàng Aribank"
+                            class="w-full h-20 rounded-md">
                         Ngân hàng Aribank
                     </a>
                 </li>
@@ -263,53 +275,65 @@
     <footer class="bg-white shadow mt-8">
         <div class="container mx-auto px-4 py-8">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div class="col-span-12 md:col-span-6">
+                <div class="col-span-12 md:col-span-3">
                     <h5 class="text-xl font-bold mb-4">
                         Về chúng tôi
                     </h5>
-                    <p class="text-gray-700">
-                        <strong>
-                            Thành viên:
-                        </strong>
-                        @foreach ($thanhViens as $thanhVien)
+                    @foreach ($thanhViens as $thanhVien)
+                        <p class="text-gray-700">
+                            <strong>
+                                Thành viên:
+                            </strong>
                             {{ $thanhVien->thanh_vien }},
-                        @endforeach
-                    </p>
+                        </p>
+                    @endforeach
                 </div>
-                <div class="col-span-12 md:col-span-3">
+                <div class="col-span-12 md:col-span-5">
                     <h5 class="text-xl font-bold mb-4">
                         Liên hệ
                     </h5>
-                    <p class="text-gray-700">
-                        Email: <a class="text-gray-700 hover:text-blue-500"
-                            href="mailto:huypham140103@gmail.com">huypham140103@gmail.com</a>
-                    </p>
-                    <p class="text-gray-700">
-                        Điện thoại: <a class="text-gray-700 hover:text-blue-500" href="tel: +84 379 395 645">+84 379
-                            395 645</a>
-                    </p>
+                    @if (count($thanhViens) > 0)
+                        @php $thanhVien = $thanhViens[0]; @endphp
+
+                        @if (!empty($thanhVien->khoa))
+                            <p class="text-black-900">
+                                Đơn vị: <a class="text-gray-700 hover:text-blue-500"
+                                    href="">{{ $thanhVien->khoa }}</a>
+                            </p>
+                        @endif
+
+                        @if (!empty($thanhVien->dia_chi))
+                            <p class="text-black-900">
+                                Địa chỉ: <a class="text-gray-700 hover:text-blue-500"
+                                    href="">{{ $thanhVien->dia_chi }}</a>
+                            </p>
+                        @endif
+
+                        @if (!empty($thanhVien->email))
+                            <p class="text-black-900">
+                                Email: <a class="text-gray-700 hover:text-blue-500"
+                                    href="mailto:{{ $thanhVien->email }}">{{ $thanhVien->email }}</a>
+                            </p>
+                        @endif
+
+                        @if (!empty($thanhVien->so_dien_thoai))
+                            <p class="text-black-900">
+                                Điện thoại: <a class="text-gray-700 hover:text-blue-500"
+                                    href="tel:{{ $thanhVien->so_dien_thoai }}">{{ $thanhVien->so_dien_thoai }}</a>
+                            </p>
+                        @endif
+                    @endif
                 </div>
-                <div class="col-span-12 md:col-span-3">
+                <div class="col-span-12 md:col-span-4">
                     <h5 class="text-xl font-bold mb-4">
-                        Theo dõi chúng tôi
+                        Xem trên bản đồ
                     </h5>
-                    <div class="flex space-x-4">
-                        <a class="text-gray-700 hover:text-blue-500" href="#">
-                            <i class="fab fa-facebook fa-2x">
-                            </i>
-                        </a>
-                        <a class="text-gray-700 hover:text-blue-500" href="#">
-                            <i class="fab fa-twitter fa-2x">
-                            </i>
-                        </a>
-                        <a class="text-gray-700 hover:text-blue-500" href="#">
-                            <i class="fab fa-linkedin fa-2x">
-                            </i>
-                        </a>
-                        <a class="text-gray-700 hover:text-blue-500" href="#">
-                            <i class="fab fa-instagram fa-2x">
-                            </i>
-                        </a>
+                    <div class="mt-4">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.3063140004333!2d105.87322541110561!3d20.980354980576248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135afd765487289%3A0x21bd5839ba683d5f!2zVHLGsOG7nW5nIMSQ4bqhaSBI4buNYyBLaW5oIFThur8gS-G7uSBUaHXhuq10IEPDtG5nIE5naGnhu4dw!5e0!3m2!1svi!2sus!4v1737168059081!5m2!1svi!2sus"
+                            class="w-full h-48 rounded-lg" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
                     </div>
                 </div>
             </div>

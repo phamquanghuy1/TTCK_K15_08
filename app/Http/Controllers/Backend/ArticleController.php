@@ -11,6 +11,7 @@ use App\Models\DeTai;
 use App\Models\DanhMuc;
 use App\Models\DonVi;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
@@ -93,34 +94,31 @@ class ArticleController extends Controller
             'tieu_de' => 'required|string',
             'mo_ta' => 'required|string',
             'tac_gia' => 'required|string',
-            //'ma_de_tai' => 'required|exists:de_tai,id',
-            //'ma_danh_muc' => 'required|exists:danh_muc,id',
+            'ma_de_tai' => 'required',
+            'ma_danh_muc' => 'required',
             'ngay_phat_hanh' => 'required|date',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $fileName = "https://via.placeholder.com/300x200"; // URL ảnh mặc định
-        if ($request->hasFile('img') && $request->file('img')->isValid()) {
-            try {
-                $uploadedFileUrl = Cloudinary::upload($request->file('img')->getRealPath())->getSecurePath();
-                $fileName = $uploadedFileUrl;
-            } catch (\Exception $e) {
-                return redirect()->back()->withErrors(['img' => 'Không thể tải lên ảnh. Vui lòng thử lại!']);
-            }
+        try {
+            $fileName = $this->handleImageUpload($request->file('img'));
+            BaiBaoKhoaHoc::create([
+                'tieu_de' => $request->tieu_de,
+                'mo_ta' => $request->mo_ta,
+                'tac_gia' => $request->tac_gia,
+                'ma_de_tai' => $request->ma_de_tai,
+                'ma_danh_muc' => $request->ma_danh_muc,
+                'ngay_phat_hanh' => $request->ngay_phat_hanh,
+                'img' => $fileName,
+                'trang_thai' => 'deactivate'
+            ]);
+            return redirect()->back()->with('success', 'Thêm bài báo thành công');
+        } catch (\Exception $e) {
+            Log::error('Lỗi upload ảnh: ' . $e->getMessage());
+            return redirect()->back()
+                ->withInput()
+                ->withErrors(['img' => 'Không thể tải lên ảnh. Vui lòng thử lại! Lỗi: ' . $e->getMessage()]);
         }
-
-        BaiBaoKhoaHoc::create([
-            'tieu_de' => $request->tieu_de,
-            'mo_ta' => $request->mo_ta,
-            'tac_gia' => $request->tac_gia,
-            'ma_de_tai' => $request->ma_de_tai,
-            'ma_danh_muc' => $request->ma_danh_muc,
-            'ngay_phat_hanh' => $request->ngay_phat_hanh,
-            'img' => $fileName,
-            'trang_thai' => 'deactivate'
-        ]);
-
-        return redirect()->back()->with('success', 'Thêm bài báo thành công');
     }
     public function getArticle($id)
     {
@@ -129,8 +127,6 @@ class ArticleController extends Controller
     }
     public function updateArticle(Request $request)
     {
-        logger($request->all()); // Xem các trường trong request
-logger($_FILES); // Xem file thực tế gửi lên
         $request->validate([
             'id' => 'required|exists:bai_bao_khoa_hocs,id',
             'tieu_de' => 'required|string|max:255',
@@ -144,7 +140,7 @@ logger($_FILES); // Xem file thực tế gửi lên
 
         $article = BaiBaoKhoaHoc::find($request->id);
         $fileName = "https://via.placeholder.com/300x200"; // URL ảnh mặc định
- // Giữ nguyên URL ảnh cũ nếu không có ảnh mới
+        // Giữ nguyên URL ảnh cũ nếu không có ảnh mới
         if ($request->hasFile('img') && $request->file('img')->isValid()) {
             try {
                 $uploadedFileUrl = Cloudinary::upload($request->file('img')->getRealPath())->getSecurePath();
@@ -163,8 +159,53 @@ logger($_FILES); // Xem file thực tế gửi lên
         $article->img = $fileName;
 
         $article->save();
-        $article->save();
 
         return redirect()->route('admin.qlbaiviet')->with('success', 'Bài viết đã được cập nhật thành công.');
+    }
+
+    private function handleImageUpload($imageFile, $existingUrl = null)
+    {
+        // Default image if no file provided
+        if (!$imageFile) {
+            return $existingUrl ?? "https://via.placeholder.com/300x200";
+        }
+
+        try {
+            // If existing URL is from Cloudinary, extract public_id
+            if ($existingUrl && str_contains($existingUrl, 'cloudinary')) {
+                $parsedUrl = parse_url($existingUrl);
+                $pathParts = explode('/', $parsedUrl['path']);
+                // Find 'articles' folder index
+                $folderIndex = array_search('articles', $pathParts);
+                if ($folderIndex !== false) {
+                    // Get filename without extension
+                    $publicId = 'articles/' . pathinfo($pathParts[count($pathParts) - 1], PATHINFO_FILENAME);
+
+                    // Try to get existing image
+                    try {
+                        $asset = Cloudinary::getAsset($publicId);
+                        if ($asset) {
+                            return $existingUrl; // Reuse existing image
+                        }
+                    } catch (\Exception $e) {
+                        // Image doesn't exist, continue with upload
+                    }
+                }
+            }
+
+            // Upload new image
+            $result = Cloudinary::upload($imageFile->getRealPath(), [
+                'folder' => 'articles',
+                'transformation' => [
+                    'quality' => 'auto',
+                    'fetch_format' => 'auto'
+                ]
+            ]);
+
+            return $result->getSecurePath();
+        } catch (\Exception $e) {
+            Log::error('Image upload error: ' . $e->getMessage());
+            throw $e;
+        }
     }
 }
