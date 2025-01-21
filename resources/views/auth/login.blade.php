@@ -29,7 +29,7 @@
                         <input class="mr-2" id="remember" type="checkbox" />
                         <label class="text-gray-700" for="remember">Nhớ mật khẩu</label>
                     </div>
-                    <a class="text-blue-500 hover:underline" href="#">Quên mật khẩu?</a>
+                    <a class="text-blue-500 hover:underline" href="">Quên mật khẩu?</a>
                 </div>
                 <button class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
                     type="submit">Đăng Nhập

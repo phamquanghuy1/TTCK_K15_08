@@ -48,7 +48,7 @@ class PagesController extends Controller
         }
 
         $deTais = $query->where('trang_thai', 'activate')
-            ->orderBy('created_at', 'desc')
+            ->orderBy('tu_ngay', 'desc')
             ->paginate(10)
             ->withQueryString();
         $categories = DanhMuc::all();

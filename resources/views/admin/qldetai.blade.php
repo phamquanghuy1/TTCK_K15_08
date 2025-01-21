@@ -65,7 +65,7 @@
                                     <td class="px-6 py-3 text-gray-700 border border-gray-300 truncate">
                                         {{ $deTai->den_ngay }}</td>
                                     <td class="px-6 py-3 text-gray-700 border border-gray-300 truncate">
-                                        {{ $deTai->danhMuc->ten_danh_muc }}</td>
+                                        {{ $deTai->danhMuc ? $deTai->danhMuc->ten_danh_muc : 'Không có danh mục' }}</td>
                                     <td class="px-6 py-3 text-gray-700 border border-gray-300 truncate">
                                         @if ($deTai->trang_thai == 'activate')
                                             <span class="text-green-600">Đang diễn ra</span>

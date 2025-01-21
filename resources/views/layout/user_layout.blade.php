@@ -41,7 +41,7 @@
                     <button id="dropdownButton" class="font-bold text-gray-700 hover:text-blue-500 focus:outline-none">
                         Nghiên cứu khoa học
                     </button>
-                    <div id="dropdownMenu" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden">
+                    <div id="dropdownMenu" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden z-50">
                         <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                             href="{{ Auth::check() ? '/user' : '/' }}">
                             Công bố khoa học
@@ -60,10 +60,10 @@
                 @if (Auth::check() && Auth::user()->phan_quyen == 'user')
                     <div class="relative">
                         <button id="dropdownButton1"
-                            class="font-bold text-gray-700 hover:text-blue-500 focus:outline-none">
+                            class="font-bold text-gray-700 hover:text-blue-500 focus:outline-none z-10">
                             Đăng ký khoa học
                         </button>
-                        <div id="dropdownMenu1" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden">
+                        <div id="dropdownMenu1" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden z-50">
                             <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="/dktacgia">
                                 Đăng ký quyền tác giả
                             </a>
@@ -86,11 +86,11 @@
                                 width="40" height="40">
                         </button>
                         <div id="userDropdownMenu"
-                            class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden">
+                            class="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden z-50">
                             <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="#">
                                 Thông tin cá nhân
                             </a>
-                            <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="#">
+                            <a class="block px-4 py-2 text-gray-700 hover:bg-gray-100" href="">
                                 Đổi mật khẩu
                             </a>
                             <form method="POST" action="{{ route('logout') }}">
@@ -113,7 +113,22 @@
             </div>
         </div>
     </nav>
-    
+    <!-- Banner Section -->
+    @if (Route::currentRouteName() !== 'login' && Route::currentRouteName() !== 'reg')
+    <div class="container mx-auto mt-4">
+        @foreach (\App\Http\Controllers\SiteController::getBanner() as $banner)
+            <div class="relative w-full h-64">
+                <img src="{{$banner->banner}}" alt="Banner Image" class="w-full h-full object-cover rounded-t-md">
+            </div>
+            <div class="w-full text-red-600 py-2 rounded-b-md">
+                <marquee behavior="scroll" direction="left" class="text-lg font-bold">
+                    {{$banner->text}}
+                </marquee>
+            </div>
+        @endforeach
+    </div>
+    @endif
+
     <div class="container mx-auto mt-8 grid grid-cols-1 md:grid-cols-12 gap-4">
         <!-- Left Content -->
         <div class="content_left col-span-12 md:col-span-2 bg-white p-4 shadow rounded">
@@ -136,62 +151,15 @@
                 Liên kết site
             </h2>
             <ul class="space-y-4">
-                <li class="flex flex-col items-center">
-                    <a href="https://congthuong.vn/" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2022/09/z3682683099624_b8470248d9d432ed326c991e23a66fda.jpg"
-                            alt="" class="w-full h-20 rounded-md">
-                        Báo công thương
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="https://moet.gov.vn/Pages/home.aspx" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Giáo dục - Đào tạo"
-                            class="w-full h-20 rounded-md">
-                        Bộ Giáo dục - Đào tạo
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="https://moit.gov.vn/" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x1.png" alt="Bộ Công thương"
-                            class="w-full h-20 rounded-md">
-                        Bộ Công thương
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="http://www.thanhdoanhanoi.gov.vn/" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x2.png" alt="Thanh Đoàn Hà Nội"
-                            class="w-full h-20 rounded-md">
-                        Thanh Đoàn Hà Nội
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="http://khoacntt.uneti.edu.vn" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg"
-                            alt="Khoa Công nghệ thông tin" class="w-full h-20 rounded-md">
-                        Khoa Công nghệ thông tin
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="http://khoadientu.uneti.edu.vn/" target="_blank"
-                        class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2020/11/logo.jpg" alt="Khoa điện tử"
-                            class="w-full h-20 rounded-md">
-                        Khoa điện tử
-                    </a>
-                </li>
-                <li class="flex flex-col items-center">
-                    <a href="https://example.com/ngan-hang-aribank" target="_blank"
-                        class="text-gray-700 hover:text-blue-500  text-center mt-1 w-full">
-                        <img src="https://uneti.edu.vn/wp-content/uploads/2019/11/x5.png" alt="Ngân hàng Aribank"
-                            class="w-full h-20 rounded-md">
-                        Ngân hàng Aribank
-                    </a>
-                </li>
+                @foreach (\App\Http\Controllers\SiteController::getLienKetSites() as $lienKetSite)
+                    <li class="flex flex-col items-center">
+                        <a href="{{ $lienKetSite->lien_ket }}" target="_blank"
+                            class="text-gray-700 hover:text-blue-500 border-b border-gray-300 pb-1 text-center mt-1 w-full">
+                            <img src="{{ $lienKetSite->img }}" alt="" class="w-full h-20 rounded-md">
+                            {{ $lienKetSite->tieu_de }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </div>
 
@@ -213,60 +181,16 @@
                 Thông báo
             </h2>
             <ul class="space-y-4">
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2024/08/2-3.jpg" alt="Notification Image"
-                        class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/bo-truong-bo-cong-thuong-trao-bang-khen-cho-truong-dai-hoc-kinh-te-ky-thuat-cong-nghiep-vi-co-thanh-tich-xuat-sac-trong-cong-tac-chi-dao-trien-khai-va-to-chuc-thuc-hien-cuoc-thi-vi/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Bộ trưởng Bộ Công Thương trao Bằng khen cho Trường Đại học Kinh tế – Kỹ thuật Công nghiệp
-                    </a>
-                </li>
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2022/05/loa-thong-bao.jpg"
-                        alt="Notification Image" class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/thong-bao-ve-viec-to-chuc-cac-lop-hoc-lai-hoc-cai-thien-trong-hk-ii-nam-hoc-2022-2023/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Thông báo về việc tổ chức các lớp học lại, học cải thiện trong HK II năm học 2022 – 2023
-                    </a>
-                </li>
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2024/08/2-3.jpg" alt="Notification Image"
-                        class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/bo-truong-bo-cong-thuong-trao-bang-khen-cho-truong-dai-hoc-kinh-te-ky-thuat-cong-nghiep-vi-co-thanh-tich-xuat-sac-trong-cong-tac-chi-dao-trien-khai-va-to-chuc-thuc-hien-cuoc-thi-vi/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Bộ trưởng Bộ Công Thương trao Bằng khen cho Trường Đại học Kinh tế – Kỹ thuật Công nghiệp
-                    </a>
-                </li>
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2024/08/2-3.jpg" alt="Notification Image"
-                        class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/bo-truong-bo-cong-thuong-trao-bang-khen-cho-truong-dai-hoc-kinh-te-ky-thuat-cong-nghiep-vi-co-thanh-tich-xuat-sac-trong-cong-tac-chi-dao-trien-khai-va-to-chuc-thuc-hien-cuoc-thi-vi/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Bộ trưởng Bộ Công Thương trao Bằng khen cho Trường Đại học Kinh tế – Kỹ thuật Công nghiệp
-                    </a>
-                </li>
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2022/05/loa-thong-bao.jpg"
-                        alt="Notification Image" class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/thong-bao-ve-viec-to-chuc-cac-lop-hoc-lai-hoc-cai-thien-trong-hk-ii-nam-hoc-2022-2023/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Thông báo về việc tổ chức các lớp học lại, học cải thiện trong HK II năm học 2022 – 2023
-                    </a>
-                </li>
-                <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
-                    <img src="https://uneti.edu.vn/wp-content/uploads/2021/11/Artboard-3-copy@3x-100.jpg"
-                        alt="Notification Image" class="w-16 h-16 rounded-md">
-                    <a href="https://uneti.edu.vn/ke-hoach-to-chuc-chuong-trinh-gap-mat-dau-nam-xuan-quy-mao-2023/"
-                        target="_blank" class="text-gray-700 hover:text-blue-500"
-                        style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        Kế hoạch tổ chức chương trình gặp mặt đầu năm Xuân Quý Mão 2023
-                    </a>
-                </li>
+                @foreach (\App\Http\Controllers\SiteController::getThongBaos() as $thongBao)
+                    <li class="flex items-center space-x-4 border-b border-gray-300 pb-2">
+                        <img src="{{ $thongBao->img }}" alt="Notification Image" class="w-16 h-16 rounded-md">
+                        <a href="{{ $thongBao->lien_ket }}" target="_blank"
+                            class="text-gray-700 hover:text-blue-500"
+                            style="max-width: calc(100% - 4rem); font-size: 0.875rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+                            {{ $thongBao->tieu_de }}
+                        </a>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </div>

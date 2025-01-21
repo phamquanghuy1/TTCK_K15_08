@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,11 +8,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
 </head>
+
 <body class="bg-gray-100 h-screen">
     <div class="flex h-full">
         <!-- Sidebar -->
         <div class="w-64 bg-blue-800 text-white h-screen p-5 fixed">
-            <h2 class="text-3xl font-bold text-center mb-6">NCKH Admin</h2>
+            @php
+                $role = Auth::user()->phan_quyen;
+            @endphp
+            @if ($role == 'admin')
+                <h2 class="text-3xl font-bold text-center mb-6">NCKH Admin</h2>
+            @elseif ($role == 'editor')
+                <h2 class="text-3xl font-bold text-center mb-6">Biên tập viên</h2>
+            @elseif ($role == 'editorialdirector')
+                <h2 class="text-3xl font-bold text-center mb-6">Tổng biên tập</h2>
+            @endif
             <ul>
                 <li class="mb-4">
                     <a href="/admin/dashboard" class="flex items-center space-x-3 hover:bg-blue-700 p-2 rounded">
@@ -76,61 +87,62 @@
                             </ul>
                         </div>
                     </button>
-                    @if(Auth::check() && Auth::user()->phan_quyen == 'admin')
-                    <button id="userMenuButton" class="focus:outline-none flex items-center space-x-2">
-                        <span class="text-gray-700">Xin chào, {{ Auth::User()->ten_nguoi_dung }}</span>
-                        <img class="w-7 h-7 rounded-full cursor-pointer"
-                            src="{{ Auth::User()->avatar }}"
-                            alt="Avatar" />
-                    </button>
-                    <!-- Dropdown Menu -->
-                    <div id="userMenu"
-                        class="mt-6 hidden absolute right-0 top-12 bg-white rounded-lg shadow-lg border w-40 transition-all duration-300 transform scale-95 origin-top-right">
-                        <ul>
-                            <li class="p-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2 transition-colors duration-200">
-                                <i class="fas fa-door-open text-gray-600"></i>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="font-medium text-gray-700">Đăng xuất</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                    @if (Auth::check() && in_array(Auth::user()->phan_quyen, ['admin', 'editor', 'editorialdirector']))
+                        <button id="userMenuButton" class="focus:outline-none flex items-center space-x-2">
+                            <span class="text-gray-700">Xin chào, {{ Auth::User()->ten_nguoi_dung }}</span>
+                            <img class="w-7 h-7 rounded-full cursor-pointer" src="{{ Auth::User()->avatar }}"
+                                alt="Avatar" />
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div id="userMenu"
+                            class="mt-6 hidden absolute right-0 top-12 bg-white rounded-lg shadow-lg border w-40 transition-all duration-300 transform scale-95 origin-top-right">
+                            <ul>
+                                <li
+                                    class="p-2 hover:bg-gray-100 cursor-pointer flex items-center space-x-2 transition-colors duration-200">
+                                    <i class="fas fa-door-open text-gray-600"></i>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="font-medium text-gray-700">Đăng xuất</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     @endif
                 </div>
             </div>
             <!-- Content -->
             @yield('content')
-    </div>
-    <style>
-        #notificationMenu {
-            z-index: 50; /* Đảm bảo menu thông báo luôn hiển thị trên các phần tử khác */
-        }
-    </style>
-<script>
-    const bell = document.querySelector("button");
-    const notificationMenu = document.getElementById("notificationMenu");
-    bell.addEventListener("click", () => {
-        notificationMenu.classList.toggle("hidden");
-    });
+        </div>
+        <style>
+            #notificationMenu {
+                z-index: 50;
+                /* Đảm bảo menu thông báo luôn hiển thị trên các phần tử khác */
+            }
+        </style>
+        <script>
+            const bell = document.querySelector("button");
+            const notificationMenu = document.getElementById("notificationMenu");
+            bell.addEventListener("click", () => {
+                notificationMenu.classList.toggle("hidden");
+            });
 
-    const userMenuButton = document.getElementById("userMenuButton");
-    const userMenu = document.getElementById("userMenu");
+            const userMenuButton = document.getElementById("userMenuButton");
+            const userMenu = document.getElementById("userMenu");
 
-    // Toggle hiển thị menu khi nhấn vào "Xin chào, Admin" hoặc avatar
-    userMenuButton.addEventListener("click", () => {
-        userMenu.classList.toggle("hidden");
-        userMenu.classList.toggle("scale-100");
-    });
+            // Toggle hiển thị menu khi nhấn vào "Xin chào, Admin" hoặc avatar
+            userMenuButton.addEventListener("click", () => {
+                userMenu.classList.toggle("hidden");
+                userMenu.classList.toggle("scale-100");
+            });
 
-    // Đóng menu khi click ra ngoài
-    document.addEventListener("click", (event) => {
-        if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
-            userMenu.classList.add("hidden");
-            userMenu.classList.remove("scale-100");
-        }
-    });
-</script>
+            // Đóng menu khi click ra ngoài
+            document.addEventListener("click", (event) => {
+                if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                    userMenu.classList.add("hidden");
+                    userMenu.classList.remove("scale-100");
+                }
+            });
+        </script>
 </body>
 
 </html>

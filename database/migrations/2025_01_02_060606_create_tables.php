@@ -233,17 +233,50 @@ class CreateTables extends Migration
 
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('activate');
             $table->string('ten_nguoi_dung');
             $table->string('so_dien_thoai');
             $table->string('email')->unique();
             $table->string('mat_khau');
             $table->unsignedBigInteger('ma_don_vi');
             $table->enum('chuc_vu', ['CanBo', 'SinhVien','Không'])->default('Không');
-            $table->enum('phan_quyen', ['user', 'admin'])->default('user');
+            $table->enum('phan_quyen', ['user', 'admin', 'editorialdirector', 'editor'])->default('user');
             $table->string('avatar')->nullable();
             $table->timestamps();
 
             $table->foreign('ma_don_vi')->references('id')->on('don_vi')->cascadeOnDelete();
+        });
+
+        Schema::create('thong_baos', function (Blueprint $table) {
+            $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
+            $table->text('tieu_de');
+            $table->text('img');
+            $table->text('lien_ket');
+            $table->timestamps();
+        });
+
+        Schema::create('lien_ket_sites', function (Blueprint $table) {
+            $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
+            $table->text('tieu_de');
+            $table->text('img');
+            $table->text('lien_ket');
+            $table->timestamps();
+        });
+
+        Schema::create('headers', function (Blueprint $table) {
+            $table->id();
+            $table->enum('trang_thai', ['activate', 'deactivate'])->default('deactivate');
+            $table->text('banner');
+            $table->text('text');
+            $table->timestamps();
+        });
+
+        Schema::create('password_reset_tokens', function (Blueprint $table) {
+            $table->string('email');
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -269,5 +302,9 @@ class CreateTables extends Migration
         Schema::dropIfExists('danh_mucs');
         Schema::dropIfExists('don_vis');
         Schema::dropIfExists('footers');
+        Schema::dropIfExists('thong_baos');
+        Schema::dropIfExists('lien_ket_sites');
+        Schema::dropIfExists('headers');
+        Schema::dropIfExists('password_reset_tokens');
     }
 }

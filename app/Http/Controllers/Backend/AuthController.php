@@ -13,12 +13,17 @@ class AuthController extends Controller
     public function xulylogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // Check if user exists and is active
+        $user = User::where('email', $request->email)->first();
+        if ($user && $user->trang_thai !== 'activate') {
+            return back()->with('error', 'Tài khoản của bạn đã bị vô hiệu hóa, vui lòng liên hệ quản trị viên');
+        }
         $status = Auth::attempt($credentials);
         if ($status) {
-            if (Auth::user()->phan_quyen == 'admin') {
-                return redirect('/admin/dashboard')->with('success', 'Đăng nhập thành công');
+            if (Auth::user()->phan_quyen == 'user') {
+                return redirect('/user')->with('success', 'Đăng nhập thành công');
             }
-            return redirect('/user')->with('success', 'Đăng nhập thành công');
+            return redirect('/admin/dashboard')->with('success', 'Đăng nhập thành công');
         }
         return back()->with('error', 'Email hoặc mật khẩu không đúng');
     }

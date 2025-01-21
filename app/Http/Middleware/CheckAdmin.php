@@ -16,7 +16,7 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->phan_quyen == 'admin') {
+        if (Auth::check() && in_array(Auth::user()->phan_quyen, ['admin', 'editor','editorialdirector'])) {
             return $next($request);
         }
 

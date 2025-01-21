@@ -41,7 +41,7 @@
                 class="w-full px-4 py-2.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Chọn năm</option>
                     @for($year = date('Y'); $year >= 2010; $year--)
-                        <option value="{{ $year }}" {{ request('search_year') == $year ? 'selected' : '' }}>
+                        <option value="{{ $year }}" {{ request('namXuatBan') == $year ? 'selected' : '' }}>
                             {{ $year }}
                         </option>
                     @endfor
@@ -70,6 +70,11 @@
         </div>
     </div>
     <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600">Tìm kiếm</button>
+    @if(request('tenDeTai') || request('khoaDonVi') || request('tacGia') || request('namXuatBan') || request('soHuuUNETI') || request('sohuuQuocTe'))
+        <a href="{{ route('home') }}" class="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600">
+            Xóa bộ lọc
+        </a>
+    @endif
 </form>
 @if ($articles->isEmpty())
     <p class="text-center text-gray-700">Không tìm thấy bài báo nào</p>

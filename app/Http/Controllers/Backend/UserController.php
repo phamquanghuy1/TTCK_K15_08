@@ -7,11 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\BaiBaoKhoaHoc;
 use App\Models\DanhMuc;
 use App\Models\Footer;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     public function __construct() {}
-
     public function user(Request $request)
     {
         $query = BaiBaoKhoaHoc::with('danhMuc', 'donVi')
