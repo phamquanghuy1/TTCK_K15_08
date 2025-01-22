@@ -252,7 +252,7 @@
                 </div>
                 <div class="mb-4">
                     <label class="block text-gray-700">Phân quyền</label>
-                    <select name="phan_quyen" id="addPhanQuyen" class="p-2 border rounded w-full" required>
+                    <select name="phan_quyen" id="editPhanQuyen" class="p-2 border rounded w-full" required>
                         <option value="user">Người dùng</option>
                         <option value="editor">Biên tập viên</option>
                         <option value="editorialdirector">Tổng biên tập</option>

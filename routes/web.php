@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\TopicController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\TopicCategoryController;
 use App\Http\Controllers\Backend\MemberController;
+use App\Http\Controllers\OtpController;
 use App\Models\Footer;
 use App\Models\DanhMuc;
 use App\Models\BaiBaoKhoaHoc;
@@ -109,6 +110,10 @@ Route::post("/login", [AuthController::class, 'xulylogin'])->name('login');
 
 Route::get("/reg", [PagesController::class, 'reg'])->name('reg');
 Route::post("/reg", [AuthController::class, 'xulyreg'])->name('reg');
+
+//rest password
+Route::post('/request-otp', [OtpController::class, 'sendOtp']);
+Route::post('/verify-otp', [OtpController::class, 'verifyOtp']);
 
 
 //pages

@@ -107,9 +107,11 @@
             </a>
         @endforeach
     </div>
+    @foreach($articles as $article)
     <div class="mt-4">
         {{ $articles->links() }}
     </div>
+    @endforeach
 </div>
 @endif
 @endsection

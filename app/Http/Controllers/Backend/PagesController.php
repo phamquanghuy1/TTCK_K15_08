@@ -44,7 +44,7 @@ class PagesController extends Controller
         }
 
         if ($request->has('search_year')) {
-            $query->whereYear('created_at', $request->search_year);
+            $query->whereYear('tu_ngay', $request->search_year);
         }
 
         $deTais = $query->where('trang_thai', 'activate')

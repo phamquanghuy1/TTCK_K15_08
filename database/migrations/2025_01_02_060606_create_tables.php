@@ -273,10 +273,12 @@ class CreateTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
+        Schema::create('otps', function (Blueprint $table) {
+            $table->id();
             $table->string('email');
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->string('otp');
+            $table->timestamp('expires_at');
+            $table->timestamps();
         });
     }
 
@@ -305,6 +307,6 @@ class CreateTables extends Migration
         Schema::dropIfExists('thong_baos');
         Schema::dropIfExists('lien_ket_sites');
         Schema::dropIfExists('headers');
-        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('otps');
     }
 }
